@@ -8,21 +8,21 @@ USE ambulaPokemon;
 
 -- Creación de la tabla persona
 CREATE TABLE persona (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     nombre VARCHAR(100),
     genero ENUM('h', 'm')
 );
 
 -- Creación de la tabla enfermera
 CREATE TABLE enfermera (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     inventario JSON,
 	FOREIGN KEY (id) REFERENCES persona(id)
 );
 
 -- Creación de la tabla entrenador
 CREATE TABLE entrenador (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     numMedallas INT,
     pokedex JSON,
     depot JSON,
@@ -48,7 +48,10 @@ CREATE TABLE pokemon (
     altura DOUBLE,
     tipo VARCHAR(100),
     vida INT,
-    estado VARCHAR(100)
+    estado VARCHAR(100),
+    id_entrenador INT,
+    FOREIGN KEY (id_entrenador) REFERENCES entrenador(id)
+    
 );
 
 CREATE TABLE tratamiento (
@@ -57,106 +60,96 @@ CREATE TABLE tratamiento (
     fecha_alta DATE,
     fecha_baja DATE,
     costo DOUBLE,
-    id_poke int,
-    id_enfermera int,
+    id_poke INT,
+    id_enfermera INT,
     FOREIGN KEY (id_poke) REFERENCES pokemon(id_poke),
     FOREIGN KEY (id_enfermera) REFERENCES enfermera(id)
 );
 
--- Inserción de datos en la tabla persona
-INSERT INTO persona (nombre, genero) VALUES ('Ash Ketchum', 'h');
-INSERT INTO persona (nombre, genero) VALUES ('Misty', 'm');
+-- Inserts para la tabla persona
+-- Inserts para la tabla persona
+INSERT INTO persona (id, nombre, genero) VALUES
+(1,'Joy1', 'm'),
+(2,'Joy2', 'm'),
+(3,'Joy3', 'm'),
+(4,'Roberto','h'),
+(5,'Jesus','h'),
+(6,'Mar','m'),
+(7,'Pepe','h');
 
--- Inserción de datos en la tabla enfermera
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 10, "Antídotos": 5}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 8, "Antídotos": 3}');
+-- Inserts para la tabla enfermera
+INSERT INTO enfermera (id,inventario) VALUES
+(1,'{"pociones": 10, "antídotos": 5, "vendas": 20}'),
+(2,'{"pociones": 15, "antídotos": 8, "vendas": 25}'),
+(3,'{"pociones": 12, "antídotos": 6, "vendas": 22}');
 
--- Inserción de datos en la tabla entrenador
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (8, '{"Pikachu": "Capturado", "Bulbasaur": "Capturado"}', '{"Pociones": 3, "Antídotos": 2}', 500);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (3, '{"Charmander": "Capturado", "Squirtle": "Capturado"}', '{"Pociones": 2, "Antídotos": 1}', 300);
+-- Inserts para la tabla entrenador
+INSERT INTO entrenador (id, numMedallas, pokedex, depot, saldo) VALUES
+(4, 8, '{"pokemonesCapturados": []}', '[{"nombre": "Pikachu", "peso": 6, "altura": 0.4, "tipo": "Eléctrico", "vida": 35, "estado": "Saludable"}, {"nombre": "Bulbasaur", "peso": 6.9, "altura": 0.7, "tipo": "Planta/Veneno", "vida": 45, "estado": "Saludable"}]', 1000),
+(5, 3, '{"pokemonesCapturados": []}', '[{"nombre": "Squirtle", "peso": 9, "altura": 0.5, "tipo": "Agua", "vida": 44, "estado": "Saludable"}, {"nombre": "Vulpix", "peso": 9.9, "altura": 0.6, "tipo": "Fuego", "vida": 38, "estado": "Saludable"}]', 800),
+(6, 6, '{"pokemonesCapturados": []}', '[{"nombre": "Geodude", "peso": 20, "altura": 0.4, "tipo": "Roca/Tierra", "vida": 40, "estado": "Saludable"}, {"nombre": "Onix", "peso": 210, "altura": 8.8, "tipo": "Roca/Tierra", "vida": 35, "estado": "Saludable"}]', 1200),
+(7, 6, '{"pokemonesCapturados": []}', '[{"nombre": "Rattata", "peso": 20, "altura": 0.4, "tipo": "Roca/Tierra", "vida": 40, "estado": "Saludable"}, {"nombre": "Onix", "peso": 210, "altura": 8.8, "tipo": "Roca/Tierra", "vida": 35, "estado": "Saludable"}]', 1200);
 
--- Inserción de datos en la tabla centro
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Verde', 'Ciudad Verde', 10000.50, 1);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Celeste', 'Ciudad Celeste', 8000.75, 2);
 
--- Inserción de datos en la tabla pokemon
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Pikachu', 6.0, 0.4, 'Eléctrico', 100, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Bulbasaur', 6.9, 0.7, 'Planta/Veneno', 120, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Charmander', 8.5, 0.6, 'Fuego', 110, 'Enfermo');
+-- Inserts para la tabla pokemon
+INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado, id_entrenador) VALUES
+('Pikachu', 6, 0.4, 'Eléctrico', 35, 'Saludable', 4),
+('Bulbasaur', 6.9, 0.7, 'Planta/Veneno', 45, 'Saludable', 4),
+('Charmander', 8.5, 0.6, 'Fuego', 39, 'Saludable', 4),
+('Squirtle', 9, 0.5, 'Agua', 44, 'Saludable', 5),
+('Vulpix', 9.9, 0.6, 'Fuego', 38, 'Saludable', 5),
+('Psyduck', 19.6, 0.8, 'Agua', 50, 'Saludable', 5),
+('Geodude', 20, 0.4, 'Roca/Tierra', 40, 'Saludable', 6),
+('Onix', 210, 8.8, 'Roca/Tierra', 35, 'Saludable', 6),
+('Staryu', 34.5, 0.8, 'Agua', 30, 'Saludable', 6),
+('Jigglypuff', 5.5, 0.5, 'Normal/Hada', 115, 'Saludable', 7),
+('Meowth', 4.2, 0.4, 'Normal', 40, 'Saludable', 7),
+('Machop', 19.5, 0.8, 'Lucha', 70, 'Saludable', 7),
+('Abra', 19.5, 0.9, 'Psíquico', 25, 'Saludable', 7),
+('Pidgey', 1.8, 0.3, 'Normal/Volador', 40, 'Saludable', 7),
+('Nidoran', 9, 0.4, 'Veneno', 55, 'Saludable', 4),
+('Clefairy', 7.5, 0.6, 'Normal', 70, 'Saludable', 4),
+('Sandshrew', 12, 0.6, 'Tierra', 50, 'Saludable', 4),
+('Sandslash', 29.5, 1, 'Tierra', 75, 'Saludable', 4),
+('Clefable', 40, 1.3, 'Normal', 95, 'Saludable', 4),
+('Nidorina', 20, 0.8, 'Veneno', 70, 'Saludable', 5),
+('Nidorino', 19.5, 0.9, 'Veneno', 61, 'Saludable', 5),
+('Clefable', 40, 1.3, 'Normal', 95, 'Saludable', 5),
+('Wigglytuff', 12, 1, 'Normal/Hada', 140, 'Saludable', 5),
+('Zubat', 7.5, 0.8, 'Veneno/Volador', 40, 'Saludable', 6),
+('Vulpix', 9.9, 0.6, 'Fuego', 38, 'Saludable', 6),
+('Oddish', 5.4, 0.5, 'Planta/Veneno', 45, 'Saludable', 6),
+('Gloom', 8.6, 0.8, 'Planta/Veneno', 60, 'Saludable', 7),
+('Vileplume', 18.6, 1.2, 'Planta/Veneno', 75, 'Saludable', 7);
 
--- Inserción de datos en la tabla tratamiento
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Fiebre', '2024-04-25', '2024-05-02', 50.00, 3, 1);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Intoxicación', '2024-04-25', '2024-05-01', 30.00, 2, 2);
 
--- Inserciones para la tabla persona
-INSERT INTO persona (nombre, genero) VALUES ('Red', 'h');
-INSERT INTO persona (nombre, genero) VALUES ('Blue', 'h');
-INSERT INTO persona (nombre, genero) VALUES ('Leaf', 'm');
-INSERT INTO persona (nombre, genero) VALUES ('Erika', 'm');
-INSERT INTO persona (nombre, genero) VALUES ('Brock', 'h');
-INSERT INTO persona (nombre, genero) VALUES ('Lt. Surge', 'h');
-INSERT INTO persona (nombre, genero) VALUES ('Sabrina', 'm');
-INSERT INTO persona (nombre, genero) VALUES ('Giovanni', 'h');
-INSERT INTO persona (nombre, genero) VALUES ('Morty', 'h');
-INSERT INTO persona (nombre, genero) VALUES ('Whitney', 'm');
+-- Inserts para la tabla centro
+INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES
+('Centro Pokémon Pueblo Paleta', 'Pueblo Paleta', 10000, 1),
+('Centro Pokémon Ciudad Plateada', 'Ciudad Plateada', 12000, 2),
+('Centro Pokémon Ciudad Celeste', 'Ciudad Celeste', 15000, 3);
 
--- Inserciones para la tabla enfermera
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 20, "Antídotos": 10}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 15, "Antídotos": 8}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 25, "Antídotos": 12}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 18, "Antídotos": 9}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 22, "Antídotos": 11}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 30, "Antídotos": 15}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 28, "Antídotos": 14}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 35, "Antídotos": 18}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 40, "Antídotos": 20}');
-INSERT INTO enfermera (inventario) VALUES ('{"Pociones": 33, "Antídotos": 16}');
 
--- Inserciones para la tabla entrenador
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (4, '{"Squirtle": "Capturado", "Charmander": "Capturado"}', '{"Pociones": 5, "Antídotos": 2}', 800);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (6, '{"Bulbasaur": "Capturado", "Pikachu": "Capturado"}', '{"Pociones": 7, "Antídotos": 3}', 1200);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (2, '{"Squirtle": "Capturado", "Pidgey": "Capturado"}', '{"Pociones": 3, "Antídotos": 1}', 500);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (8, '{"Charmander": "Capturado", "Squirtle": "Capturado"}', '{"Pociones": 4, "Antídotos": 2}', 1500);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (3, '{"Pidgeotto": "Capturado", "Geodude": "Capturado"}', '{"Pociones": 2, "Antídotos": 1}', 300);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (5, '{"Spearow": "Capturado", "Ekans": "Capturado"}', '{"Pociones": 6, "Antídotos": 3}', 1000);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (7, '{"Vulpix": "Capturado", "Nidoran": "Capturado"}', '{"Pociones": 8, "Antídotos": 4}', 1800);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (1, '{"Caterpie": "Capturado", "Metapod": "Capturado"}', '{"Pociones": 1, "Antídotos": 1}', 200);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (9, '{"Drowzee": "Capturado", "Hypno": "Capturado"}', '{"Pociones": 10, "Antídotos": 5}', 2200);
-INSERT INTO entrenador (numMedallas, pokedex, depot, saldo) VALUES (10, '{"Zubat": "Capturado", "Golbat": "Capturado"}', '{"Pociones": 12, "Antídotos": 6}', 2500);
+-- Inserts para la tabla tratamiento
+INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES
+('Parálisis temporal', '2024-04-15', '2024-04-20', 50, 1, 1),
+('Intoxicación por veneno', '2024-04-16', '2024-04-21', 40, 2, 2),
+('Quemaduras leves', '2024-04-17', '2024-04-22', 30, 3, 3),
+('Golpe severo', '2024-04-18', '2024-04-23', 60, 4, 1),
+('Confusión', '2024-04-19', '2024-04-24', 70, 5, 2),
+('Parálisis temporal', '2024-04-20', '2024-04-25', 50, 6, 3),
+('Intoxicación por veneno', '2024-04-21', '2024-04-26', 40, 7, 1),
+('Quemaduras leves', '2024-04-22', '2024-04-27', 30, 8, 2),
+('Golpe severo', '2024-04-23', '2024-04-28', 60, 9, 3),
+('Confusión', '2024-04-24', '2024-04-29', 70, 10, 1),
+('Parálisis temporal', '2024-04-25', '2024-04-30', 50, 11, 2),
+('Intoxicación por veneno', '2024-04-26', '2024-05-01', 40, 12, 3),
+('Quemaduras leves', '2024-04-27', '2024-05-02', 30, 13, 1),
+('Golpe severo', '2024-04-28', '2024-05-03', 60, 14, 2),
+('Confusión', '2024-04-29', '2024-05-04', 70, 15, 3),
+('Parálisis temporal', '2024-04-30', '2024-05-05', 50, 16, 1),
+('Intoxicación por veneno', '2024-05-01', '2024-05-06', 40, 17, 2),
+('Quemaduras leves', '2024-05-02', '2024-05-07', 30, 18, 3),
+('Golpe severo', '2024-05-03', '2024-05-08', 60, 19, 1);
 
--- Inserciones para la tabla centro
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Plateada', 'Ciudad Plateada', 15000.75, 3);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Carmín', 'Ciudad Carmín', 18000.50, 4);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Celeste', 'Ciudad Celeste', 20000.25, 5);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Azafrán', 'Ciudad Azafrán', 22000.00, 6);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Fucsia', 'Ciudad Fucsia', 25000.00, 7);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Verde', 'Ciudad Verde', 27000.00, 8);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Plateada', 'Ciudad Plateada', 30000.00, 9);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Plateada', 'Ciudad Plateada', 32000.00, 10);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Plateada', 'Ciudad Plateada', 35000.00, 11);
-INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES ('Centro Pokémon de Ciudad Plateada', 'Ciudad Plateada', 37000.00, 12);
-
--- Inserciones para la tabla pokemon
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Squirtle', 9.0, 0.5, 'Agua', 110, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Charmander', 8.5, 0.6, 'Fuego', 100, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Bulbasaur', 6.9, 0.7, 'Planta/Veneno', 120, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Pidgey', 1.8, 0.3, 'Normal/Volador', 90, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Ekans', 6.9, 2.0, 'Veneno', 100, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Pikachu', 6.0, 0.4, 'Eléctrico', 100, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Meowth', 4.2, 0.4, 'Normal', 95, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Psyduck', 19.6, 0.8, 'Agua', 120, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Growlithe', 19.0, 0.7, 'Fuego', 110, 'Saludable');
-INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado) VALUES ('Geodude', 20.0, 0.4, 'Roca/Tierra', 130, 'Saludable');
-
--- Inserciones para la tabla tratamiento
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Fiebre', '2024-04-15', '2024-04-25', 50.00, 1, 1);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Envenenamiento', '2024-04-16', '2024-04-28', 70.00, 2, 2);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Parálisis', '2024-04-17', '2024-04-26', 60.00, 3, 3);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Quemadura', '2024-04-18', '2024-04-29', 80.00, 4, 4);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Congestión', '2024-04-19', '2024-04-30', 90.00, 5, 5);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Hipotermia', '2024-04-20', '2024-05-01', 100.00, 6, 6);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Desgarro muscular', '2024-04-21', '2024-05-02', 110.00, 7, 7);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Insomnio', '2024-04-22', '2024-05-03', 120.00, 8, 8);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Gripe', '2024-04-23', '2024-05-04', 130.00, 9, 9);
-INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES ('Esguince', '2024-04-24', '2024-05-05', 140.00, 10, 10);
 
