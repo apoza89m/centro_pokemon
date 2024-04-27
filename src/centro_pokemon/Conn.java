@@ -8,24 +8,15 @@ import java.util.Scanner;
 /**
  * @name Conn.java
  * @purpose Connection
- * @author https://www.squash.io/how-to-connect-java-with-mysql/
+ * @author grupo 4
  * @version 1.0
  */
 
 public class Conn {
 
-	private static Connection connection = null;
 	private static String url = "jdbc:mysql://localhost:3306/ambulapokemon";
 	private static String username = "root";
 	private static String password = "";
-
-	public static Connection getConnection() {
-		return connection;
-	}
-
-	public static void setConnection(Connection connection) {
-		Conn.connection = connection;
-	}
 
 	public static String getUrl() {
 		return url;
@@ -80,23 +71,24 @@ public class Conn {
 		}
 
 		try {
-			connection = DriverManager.getConnection(nombre, usuario, pass);
+			Connection connection = DriverManager.getConnection(nombre, usuario, pass);
 
 			setUrl(nombre);
 			setUsername(usuario);
-			setPassword(pass);
-			
-			setConnection(connection);
+			setPassword(pass);			
 
 			System.out.println("Datos actualizados");
+			
+			if (sc != null)
+				sc.close();
+			
+			if (connection != null)
+				cierraConn(connection);
 
 		} catch (SQLException e) {
 			System.out.println("Error al configurar");
 			// e.printStackTrace();
 		}
-
-		if (connection != null)
-			cierraConn(connection);
 
 	}
 
@@ -113,19 +105,16 @@ public class Conn {
 		System.out.println("MySQL JDBC Driver Registrado!");
 
 		try {
-			connection = DriverManager.getConnection(url, username, password);
+			Connection connection = DriverManager.getConnection(url, username, password);
+			System.out.println("Conexion exitosa");
+			return connection;
 
 		} catch (SQLException e) {
 			System.out.println("La connection ha fallado, revise la configuracion de la base de datos");
 			// e.printStackTrace();
 		}
 
-		if (connection != null) {
-			System.out.println("Conexion exitosa");
-		} else {
-			System.out.println("Error");
-		}
-		return connection;
+		return null;
 	}
 
 	public static void cierraConn(Connection conn) {

@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * @name App.java
  * @purpose main
- * @author https://www.squash.io/how-to-connect-java-with-mysql/
+ * @author grupo 4
  * @version 1.0
  */
 
@@ -36,8 +36,13 @@ public class App {
 				crud.Insert("enfermera");
 				break;
 			case 4:
-				System.out.println("READ");
-				crud.Select("centro");
+				try {
+					System.out.println("READ");
+					crud.Select();
+
+				} catch (Exception e) {
+					System.out.println("Error al leer la base de datos");
+				}
 				break;
 			case 5:
 				System.out.println("UPDATE");
@@ -46,7 +51,7 @@ public class App {
 				System.out.println("DELETE");
 				break;
 			case 7:
-				System.out.println("Hasta luego Lucas!");
+				System.out.println("¡Hasta luego Lucas!");
 				if (sc != null)
 					sc.close();
 				break;
