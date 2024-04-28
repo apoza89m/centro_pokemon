@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * @name Conn.java
  * @purpose Connection
- * @author grupo 4
+ * @author Group 4
  * @version 1.0
  */
 

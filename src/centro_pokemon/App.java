@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * @name App.java
  * @purpose main
- * @author grupo 4
+ * @author Group 4
  * @version 1.0
  */
 

@@ -9,17 +9,28 @@ import java.util.Scanner;
 
 /**
  * @name Crud.java
- * @purpose crud
- * @author grupo 4
+ * @purpose BD
+ * @author Group 4
  * @version 1.0
  */
 
 public class Crud {
 
 	private static Connection conn = null;
+	Scanner sc;
 
 	public Crud() {
-		this.conn = Conn.dameConn();
+		Crud.conn = Conn.dameConn();
+		sc = new Scanner(System.in);
+		//if (sc != null) sc.close();	
+	}
+
+	public static Connection getConn() {
+		return conn;
+	}
+
+	public static void setConn(Connection conn) {
+		Crud.conn = conn;
 	}
 
 	public void Insert(String t) {
@@ -76,19 +87,14 @@ public class Crud {
 
 	public void Select() {
 
-		Scanner sc = new Scanner(System.in);
-
 		String tabla = "";
-		
+
 		System.out.println("Introduce nombre de tabla para hacer SELECT");
-		
+
 		while (!tabla.equals("salir")) {
 			System.out.println("\nTablas: \n- centro\n" + "- enfermera\n" + "- entrenador\n" + "- pokemon\n"
 					+ "- tratamiento\n" + "- salir\n");
 			tabla = sc.next();
-
-			/*if (sc != null)
-				sc.close();*/
 
 			switch (tabla) {
 			case "centro":
