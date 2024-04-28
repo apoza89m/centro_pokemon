@@ -154,7 +154,7 @@ public class Crud {
 							+ id_entrenador);
 				}
 			} catch (SQLException e) {
-				System.out.println("Error al leer");
+				System.out.println("Error al leer la tabla");
 				// e.printStackTrace();
 			}
 			break;
@@ -166,7 +166,6 @@ public class Crud {
 			break;
 		default:
 			System.out.println("Tabla no reconocida");
-			break;
 		}
 
 	}

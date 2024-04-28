@@ -77,7 +77,7 @@ public class Conn {
 			setUsername(usuario);
 			setPassword(pass);			
 
-			System.out.println("Datos actualizados");
+			System.out.println("------------ Datos actualizados! ------------");
 			
 			if (sc != null)
 				sc.close();
@@ -106,7 +106,7 @@ public class Conn {
 
 		try {
 			Connection connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Conexion exitosa");
+			System.out.println("-------- Conexion exitosa! ------------");
 			return connection;
 
 		} catch (SQLException e) {

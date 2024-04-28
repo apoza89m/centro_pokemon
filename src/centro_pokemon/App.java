@@ -39,20 +39,20 @@ public class App {
 				try {
 					System.out.println("READ");
 					crud.Select("pokemon");
-					
+
 				} catch (Exception e) {
 					System.out.println("Error al leer la base de datos");
 				}
-				break;				
+				break;
 			case 5:
 				try {
 					System.out.println("READ");
 					crud.Select();
-					
+
 				} catch (Exception e) {
 					System.out.println("Error al leer la base de datos");
 				}
-				break;	
+				break;
 			case 6:
 				System.out.println("DELETE");
 				break;
