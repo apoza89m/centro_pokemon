@@ -38,15 +38,21 @@ public class App {
 			case 4:
 				try {
 					System.out.println("READ");
-					crud.Select();
-
+					crud.Select("pokemon");
+					
 				} catch (Exception e) {
 					System.out.println("Error al leer la base de datos");
 				}
-				break;
+				break;				
 			case 5:
-				System.out.println("UPDATE");
-				break;
+				try {
+					System.out.println("READ");
+					crud.Select();
+					
+				} catch (Exception e) {
+					System.out.println("Error al leer la base de datos");
+				}
+				break;	
 			case 6:
 				System.out.println("DELETE");
 				break;

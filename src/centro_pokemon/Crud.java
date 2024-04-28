@@ -22,7 +22,7 @@ public class Crud {
 	public Crud() {
 		Crud.conn = Conn.dameConn();
 		sc = new Scanner(System.in);
-		//if (sc != null) sc.close();	
+		// if (sc != null) sc.close();
 	}
 
 	public static Connection getConn() {
@@ -85,87 +85,88 @@ public class Crud {
 		}
 	}
 
-	public void Select() {
+	public void Select(String... tablaOpcional) {
 
 		String tabla = "";
 
-		System.out.println("Introduce nombre de tabla para hacer SELECT");
-
-		while (!tabla.equals("salir")) {
+		if (tablaOpcional.length > 0)
+			tabla = tablaOpcional[0];
+		else {
+			System.out.println("Introduce nombre de tabla para hacer SELECT");
 			System.out.println("\nTablas: \n- centro\n" + "- enfermera\n" + "- entrenador\n" + "- pokemon\n"
 					+ "- tratamiento\n" + "- salir\n");
 			tabla = sc.next();
+		}
 
-			switch (tabla) {
-			case "centro":
-				try {
-					// Create a statement
-					Statement statement = conn.createStatement();
-					// Execute a query
-					String query = "SELECT * FROM centro";
+		switch (tabla) {
+		case "centro":
+			try {
+				// Create a statement
+				Statement statement = conn.createStatement();
+				// Execute a query
+				String query = "SELECT * FROM centro";
 
-					ResultSet resultSet = statement.executeQuery(query);
+				ResultSet resultSet = statement.executeQuery(query);
 
-					// Process the results
-					while (resultSet.next()) {
-						int id = resultSet.getInt("id");
-						String nombre = resultSet.getString("nombre");
-						String localidad = resultSet.getString("localidad");
-						double presupuesto = resultSet.getDouble("presupuesto");
-						int trabajador = resultSet.getInt("trabajador");
-						System.out.println("ID: " + id + ", Nombre: " + nombre + ", Localidad: " + localidad
-								+ ", Presupuesto: " + presupuesto + ", Enfermera: " + trabajador);
-					}
-				} catch (SQLException e) {
-					System.out.println("Error al leer");
-					// e.printStackTrace();
+				// Process the results
+				while (resultSet.next()) {
+					int id = resultSet.getInt("id");
+					String nombre = resultSet.getString("nombre");
+					String localidad = resultSet.getString("localidad");
+					double presupuesto = resultSet.getDouble("presupuesto");
+					int trabajador = resultSet.getInt("trabajador");
+					System.out.println("ID: " + id + ", Nombre: " + nombre + ", Localidad: " + localidad
+							+ ", Presupuesto: " + presupuesto + ", Enfermera: " + trabajador);
 				}
-
-				break;
-			case "enfermera":
-				System.out.println("CODIGO ENFERMERA");
-				break;
-			case "entrenador":
-				System.out.println("CODIGO ENTRENADOR");
-				break;
-			case "pokemon":
-				try {
-					// Create a statement
-					Statement statement = conn.createStatement();
-					// Execute a query
-					String query = "SELECT * FROM pokemon";
-
-					ResultSet resultSet = statement.executeQuery(query);
-
-					// Process the results
-					while (resultSet.next()) {
-						int id = resultSet.getInt("id_poke");
-						String nombre = resultSet.getString("nombre");
-						double peso = resultSet.getDouble("peso");
-						double altura = resultSet.getDouble("altura");
-						String tipo = resultSet.getString("tipo");
-						int vida = resultSet.getInt("vida");
-						String estado = resultSet.getString("estado");
-						int id_entrenador = resultSet.getInt("id_entrenador");
-						System.out.println("ID: " + id + ", Nombre: " + nombre + ", Peso: " + peso + ", Altura: "
-								+ altura + ", Tipo: " + tipo + ", Vida: " + vida + ", Estado: " + estado
-								+ ", Id_entrenador: " + id_entrenador);
-					}
-				} catch (SQLException e) {
-					System.out.println("Error al leer");
-					// e.printStackTrace();
-				}
-				break;
-			case "tratamiento":
-				System.out.println("CODIGO TRATAMIENTO");
-				break;
-			case "salir":
-				System.out.println("\nVolviendo al menu principal");
-				break;
-			default:
-				System.out.println("Tabla no reconocida");
-				continue;
+			} catch (SQLException e) {
+				System.out.println("Error al leer");
+				// e.printStackTrace();
 			}
+
+			break;
+		case "enfermera":
+			System.out.println("CODIGO ENFERMERA");
+			break;
+		case "entrenador":
+			System.out.println("CODIGO ENTRENADOR");
+			break;
+		case "pokemon":
+			try {
+				// Create a statement
+				Statement statement = conn.createStatement();
+				// Execute a query
+				String query = "SELECT * FROM pokemon";
+
+				ResultSet resultSet = statement.executeQuery(query);
+
+				// Process the results
+				while (resultSet.next()) {
+					int id = resultSet.getInt("id_poke");
+					String nombre = resultSet.getString("nombre");
+					double peso = resultSet.getDouble("peso");
+					double altura = resultSet.getDouble("altura");
+					String tipo = resultSet.getString("tipo");
+					int vida = resultSet.getInt("vida");
+					String estado = resultSet.getString("estado");
+					int id_entrenador = resultSet.getInt("id_entrenador");
+					System.out.println("ID: " + id + ", Nombre: " + nombre + ", Peso: " + peso + ", Altura: " + altura
+							+ ", Tipo: " + tipo + ", Vida: " + vida + ", Estado: " + estado + ", Id_entrenador: "
+							+ id_entrenador);
+				}
+			} catch (SQLException e) {
+				System.out.println("Error al leer");
+				// e.printStackTrace();
+			}
+			break;
+		case "tratamiento":
+			System.out.println("CODIGO TRATAMIENTO");
+			break;
+		case "salir":
+			System.out.println("\nVolviendo al menu principal");
+			break;
+		default:
+			System.out.println("Tabla no reconocida");
+			break;
 		}
 
 	}
