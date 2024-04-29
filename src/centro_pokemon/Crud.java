@@ -16,21 +16,21 @@ import java.util.Scanner;
 
 public class Crud {
 
-	private static Connection conn = null;
+	private Connection conn = null;
 	Scanner sc;
 
 	public Crud() {
-		Crud.conn = Conn.dameConn();
+		this.conn = Conn.dameConn();
 		sc = new Scanner(System.in);
 		// if (sc != null) sc.close();
 	}
 
-	public static Connection getConn() {
+	public Connection getConn() {
 		return conn;
 	}
 
-	public static void setConn(Connection conn) {
-		Crud.conn = conn;
+	public void setConn(Connection conn) {
+		this.conn = conn;
 	}
 
 	public void Insert(String t) {
@@ -85,7 +85,7 @@ public class Crud {
 		}
 	}
 
-	public void Select(String... tablaOpcional) {
+	public void Select(String... tablaOpcional) { // String... permite 0 o mas parametros, array[]
 
 		String tabla = "";
 
@@ -167,6 +167,51 @@ public class Crud {
 		default:
 			System.out.println("Tabla no reconocida");
 		}
+
+	}
+
+	public boolean SelectId(int idSelect) { // objeto como parametro
+
+		String tabla = "pokemon";
+		
+		// int idSelect = objeto.getId();
+		// switch (objeto.getClass){
+		
+		switch (tabla) {
+		case "pokemon":
+			try {
+				// Create a statement
+				Statement statement = conn.createStatement();
+				// Execute a query
+				String query = "SELECT * FROM pokemon WHERE id_poke = " + idSelect;
+
+				ResultSet resultSet = statement.executeQuery(query);
+
+				// Process the results
+				while (resultSet.next()) {
+					int id = resultSet.getInt("id_poke");
+					String nombre = resultSet.getString("nombre");
+					double peso = resultSet.getDouble("peso");
+					double altura = resultSet.getDouble("altura");
+					String tipo = resultSet.getString("tipo");
+					int vida = resultSet.getInt("vida");
+					String estado = resultSet.getString("estado");
+					int id_entrenador = resultSet.getInt("id_entrenador");
+					System.out.println("ID: " + id + ", Nombre: " + nombre + ", Peso: " + peso + ", Altura: " + altura
+							+ ", Tipo: " + tipo + ", Vida: " + vida + ", Estado: " + estado + ", Id_entrenador: "
+							+ id_entrenador);
+					return true;
+				}
+			} catch (SQLException e) {
+				System.out.println("Error al leer la tabla");
+				// e.printStackTrace();
+			}
+			break;
+		default:
+			System.out.println("No existe tabla para ese objeto");
+			return false;
+		}
+		return false;
 
 	}
 

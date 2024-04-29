@@ -58,6 +58,8 @@ public class Conn {
 		;
 		System.out.printf("\nUsuario: %n");
 		String usuario = sc.next();
+		
+		// En el caso de root no preguntamos por password
 		if (!usuario.equals("root")) {
 			System.out.printf("\nPass: %n");
 			pass = sc.next();
@@ -77,7 +79,9 @@ public class Conn {
 			setUsername(usuario);
 			setPassword(pass);			
 
-			System.out.println("------------ Datos actualizados! ------------");
+			System.out.println("------------ ¡Datos actualizados! ------------");
+			
+			// Una vez comprobado que funciona, desconectamos
 			
 			if (sc != null)
 				sc.close();
@@ -102,15 +106,15 @@ public class Conn {
 			// e.printStackTrace();
 		}
 		
-		System.out.println("MySQL JDBC Driver Registrado!");
+		System.out.println("¡MySQL JDBC Driver Registrado!");
 
 		try {
 			Connection connection = DriverManager.getConnection(url, username, password);
-			System.out.println("-------- Conexion exitosa! ------------");
+			System.out.println("-------- ¡Conexion exitosa! ------------");
 			return connection;
 
 		} catch (SQLException e) {
-			System.out.println("La connection ha fallado, revise la configuracion de la base de datos");
+			System.out.println("La conexion ha fallado, revise la configuracion de la base de datos");
 			// e.printStackTrace();
 		}
 

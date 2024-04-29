@@ -1,10 +1,10 @@
 #Grupo 4
 # Creación de la base de datos
-DROP DATABASE IF EXISTS ambulaPokemon;
-CREATE DATABASE IF NOT EXISTS ambulaPokemon;
+DROP DATABASE IF EXISTS ambulapokemon;
+CREATE DATABASE IF NOT EXISTS ambulapokemon;
 
 -- Selección de la base de datos
-USE ambulaPokemon;
+USE ambulapokemon;
 
 -- Creación de la tabla persona
 CREATE TABLE persona (

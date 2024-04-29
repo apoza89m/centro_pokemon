@@ -35,7 +35,7 @@ public class App {
 				System.out.println("INSERT");
 				crud.Insert("enfermera");
 				break;
-			case 4:
+			case 4: // prueba de select pasando parametro string
 				try {
 					System.out.println("READ");
 					crud.Select("pokemon");
@@ -44,7 +44,7 @@ public class App {
 					System.out.println("Error al leer la base de datos");
 				}
 				break;
-			case 5:
+			case 5: // prueba de select sin parametros
 				try {
 					System.out.println("READ");
 					crud.Select();
@@ -53,8 +53,14 @@ public class App {
 					System.out.println("Error al leer la base de datos");
 				}
 				break;
-			case 6:
-				System.out.println("DELETE");
+			case 6: // prueba de select buscando un id
+				try {
+					System.out.println("READ");
+					crud.SelectId(2);
+
+				} catch (Exception e) {
+					System.out.println("Error al leer la base de datos");
+				}
 				break;
 			case 7:
 				System.out.println("¡Hasta luego Lucas!");
