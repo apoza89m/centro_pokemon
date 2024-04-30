@@ -53,7 +53,7 @@ public class App {
 					System.out.println("Error al leer la base de datos");
 				}
 				break;
-			case 6: // prueba de select buscando un id
+			case 6: // prueba de select buscando un id - OJO
 				try {
 					System.out.println("READ");
 					crud.SelectId(2);
