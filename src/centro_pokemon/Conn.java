@@ -48,7 +48,7 @@ public class Conn {
 		
 		String pass = "";
 
-		System.out.println("-------- MySQL JDBC Configuration------------");
+		System.out.println("------------ MySQL JDBC Configuration------------");
 
 		String nombre = "jdbc:mysql://localhost:";
 		System.out.printf("\nPuerto: %n");
@@ -79,7 +79,7 @@ public class Conn {
 			setUsername(usuario);
 			setPassword(pass);			
 
-			System.out.println("------------ ¡Datos actualizados! ------------");
+			System.out.println("------------ Datos actualizados! ------------");
 			
 			// Una vez comprobado que funciona, desconectamos
 			
@@ -97,7 +97,7 @@ public class Conn {
 	}
 
 	public static Connection dameConn() {
-		System.out.println("-------- MySQL JDBC Connection Testing ------------");
+		System.out.println("------------ MySQL JDBC Connection Testing ------------");
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -106,11 +106,11 @@ public class Conn {
 			// e.printStackTrace();
 		}
 		
-		System.out.println("¡MySQL JDBC Driver Registrado!");
+		System.out.println("MySQL JDBC Driver Registrado!");
 
 		try {
 			Connection connection = DriverManager.getConnection(url, username, password);
-			System.out.println("-------- ¡Conexion exitosa! ------------");
+			System.out.println("------------ Conexion exitosa! ------------");
 			return connection;
 
 		} catch (SQLException e) {
