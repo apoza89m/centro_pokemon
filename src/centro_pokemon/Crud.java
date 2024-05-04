@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
 
 /**
  * @name Crud.java
@@ -32,7 +35,12 @@ public class Crud {
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
+		
+	public Scanner getSc() {
+		return sc;
+	}
 	
+
 	public void Insert(Centro centroNuevo) {
 
         try {
@@ -147,10 +155,65 @@ public class Crud {
 
 			break;
 		case "enfermera":
-			System.out.println("CODIGO ENFERMERA");
+			try {
+				// Create a statement
+				Statement statement = conn.createStatement();
+				// Execute a query
+				String query = "SELECT * FROM persona JOIN enfermera ON persona.id = enfermera.id";
+
+				ResultSet resultSet = statement.executeQuery(query);
+
+				// Process the results
+				while (resultSet.next()) {
+					int id = resultSet.getInt("id");
+					String nombre = resultSet.getString("nombre");
+					char genero = resultSet.getString("genero").charAt(0);
+					String inventario = resultSet.getString("inventario");
+					
+					// buscar como recibir json de bbdd
+					Map<String, Integer> inventarioMap = new HashMap();
+					
+
+					System.out.println("ID: " + id + ", Nombre: " + nombre + ", genero: " + genero
+							+ ", Inventario: " + inventarioMap);
+				}
+			} catch (SQLException e) {
+				System.out.println("Error al leer");
+				// e.printStackTrace();
+			}
 			break;
 		case "entrenador":
-			System.out.println("CODIGO ENTRENADOR");
+			try {
+				// Create a statement
+				Statement statement = conn.createStatement();
+				// Execute a query
+				String query = "SELECT * FROM persona JOIN entrenador ON persona.id = entrenador.id";
+
+				ResultSet resultSet = statement.executeQuery(query);
+
+				// Process the results
+				while (resultSet.next()) {
+					int id = resultSet.getInt("id");
+					String nombre = resultSet.getString("nombre");
+					char genero = resultSet.getString("genero").charAt(0);
+					int numMedallas = resultSet.getInt("numMedallas");
+					String pokedex = resultSet.getString("pokedex");
+					String depot = resultSet.getString("depot");
+					int saldo = resultSet.getInt("saldo");
+					
+					// buscar como recibir json de bbdd
+					Map<String, Integer> pokedexMap = new HashMap();
+					Map<String, Integer> depotMap = new HashMap();
+					
+
+					System.out.println("ID: " + id + ", Nombre: " + nombre + ", genero: " + genero
+							+ ", Numero de medallas: " + numMedallas +  ", pokedex: " + 
+							pokedexMap + ", depot: " + depotMap +  ", saldo: " + saldo);
+				}
+			} catch (SQLException e) {
+				System.out.println("Error al leer");
+				// e.printStackTrace();
+			}
 			break;
 		case "pokemon":
 			try {
@@ -192,14 +255,36 @@ public class Crud {
 
 	}
 
-	public boolean SelectId(int idSelect) { // objeto como parametro
-
-		String tabla = "pokemon";
+	public boolean SelectId(String tabla, int idSelect) {
 		
 		// int idSelect = objeto.getId();
-		// switch (objeto.getClass){
 		
 		switch (tabla) {
+		case "centro":
+			try {
+				// Create a statement
+				Statement statement = conn.createStatement();
+				// Execute a query
+				String query = "SELECT * FROM centro WHERE id = " + idSelect;
+
+				ResultSet resultSet = statement.executeQuery(query);
+
+				// Process the results
+				while (resultSet.next()) {
+					int id = resultSet.getInt("id");
+					String nombre = resultSet.getString("nombre");
+					String localidad = resultSet.getString("localidad");
+					double presupuesto = resultSet.getDouble("presupuesto");
+					int trabajador = resultSet.getInt("trabajador");
+					System.out.println("ID: " + id + ", Nombre: " + nombre + ", Localidad: " + localidad + ", Presupuesto: " + presupuesto
+							+ ", Trabajador: " + trabajador);
+					return true;
+				}
+			} catch (SQLException e) {
+				System.out.println("Error al leer la tabla");
+				// e.printStackTrace();
+			}
+			break;
 		case "pokemon":
 			try {
 				// Create a statement
@@ -229,6 +314,7 @@ public class Crud {
 				// e.printStackTrace();
 			}
 			break;
+			
 		default:
 			System.out.println("No existe tabla para ese objeto");
 			return false;

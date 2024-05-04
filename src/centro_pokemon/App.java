@@ -57,7 +57,7 @@ public class App {
 	
 	public static void menuInsert(Crud crud) {
 	
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
@@ -111,7 +111,7 @@ public class App {
 	
 	public static void menuSelect(Crud crud) {
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
@@ -129,10 +129,10 @@ public class App {
 				}
 				break;
 			case 2:
-				//crud.Select("enfermera");
+				crud.Select("enfermera");
 				break;
 			case 3:
-				//crud.Select("entrenador");            
+				crud.Select("entrenador");            
 				break;
 			case 4:
 				try {
@@ -157,7 +157,7 @@ public class App {
 	
 	public static void menuUpdate(Crud crud) {
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
@@ -171,7 +171,7 @@ public class App {
 				crud.Select("centro");
                 System.out.println("Inserte id del centro");
                 int centroID = sc.nextInt();
-                crud.SelectId(centroID);
+                crud.SelectId("centro", centroID);
 
                 /*
                 System.out.println("Inserte localidad");
@@ -214,7 +214,7 @@ public class App {
 	
 	public static void menuDelete(Crud crud) {
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
