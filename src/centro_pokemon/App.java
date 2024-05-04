@@ -46,20 +46,18 @@ public class App {
                 Double nuevoPresupuesto = sc.nextDouble() ;
                 nuevoCentro.setPresupuesto(nuevoPresupuesto);
 
-                //trabajador
-
                 System.out.println("Introduce ID de trabajador");
                 int nuevoTrabajador = sc.nextInt() ;
 
                 nuevoCentro.setTrabajador(nuevoTrabajador);
 
-                System.out.println(nuevoCentro);
+                crud.Insert(nuevoCentro);
                 
 				break;
 			case 4: // prueba de select pasando parametro string
 				try {
 					System.out.println("READ");
-					crud.Select("pokemon");
+					crud.Select("centro");
 
 				} catch (Exception e) {
 					System.out.println("Error al leer la base de datos");

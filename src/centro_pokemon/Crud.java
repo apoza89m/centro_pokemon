@@ -32,6 +32,28 @@ public class Crud {
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
+	
+	public void Insert(Centro centroNuevo) {
+
+        try {
+
+            // Prepare the SQL statement
+            String insertQuery = "INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
+            // Set parameter values
+            preparedStatement.setString(1, centroNuevo.getNombre());
+            preparedStatement.setString(2, centroNuevo.getLocalidad());
+            preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
+            preparedStatement.setInt(4, centroNuevo.getTrabajador());
+            // Execute the prepared statement
+            int rowsInserted = preparedStatement.executeUpdate();
+            System.out.println(rowsInserted + " row(s) insertados.");
+
+        } catch (SQLException e) {
+            System.out.println("Error al insertar");
+            // e.printStackTrace();
+        }
+}
 
 	public void Insert(String t) {
 		if (t.equals("centro")) {
@@ -48,7 +70,7 @@ public class Crud {
 				preparedStatement.setInt(4, 1);
 				// Execute the prepared statement
 				int rowsInserted = preparedStatement.executeUpdate();
-				System.out.println(rowsInserted + " row(s) inserted.");
+				System.out.println(rowsInserted + " row(s) insertados.");
 
 			} catch (SQLException e) {
 				System.out.println("Error al insertar");
