@@ -33,7 +33,28 @@ public class App {
 				break;
 			case 3:
 				System.out.println("INSERT");
-				crud.Insert("enfermera");
+                Centro nuevoCentro = new Centro();
+                System.out.println("Inserte nombre del centro");
+                String nuevoNombre = sc.next();
+                nuevoCentro.setNombre(nuevoNombre);
+
+                System.out.println("Inserte localidad");
+                String nuevaLocalidad = sc.next();
+                nuevoCentro.setLocalidad(nuevaLocalidad);
+
+                System.out.println("Inserte presupuesto");
+                Double nuevoPresupuesto = sc.nextDouble() ;
+                nuevoCentro.setPresupuesto(nuevoPresupuesto);
+
+                //trabajador
+
+                System.out.println("Introduce ID de trabajador");
+                int nuevoTrabajador = sc.nextInt() ;
+
+                nuevoCentro.setTrabajador(nuevoTrabajador);
+
+                System.out.println(nuevoCentro);
+                
 				break;
 			case 4: // prueba de select pasando parametro string
 				try {
