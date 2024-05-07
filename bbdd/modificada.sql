@@ -24,7 +24,7 @@ CREATE TABLE enfermera (
 CREATE TABLE entrenador (
     id INT PRIMARY KEY,
     num_medallas INT,
-    saldo INT,
+    saldo DOUBLE,
     FOREIGN KEY (id) REFERENCES persona(id)
 );
 
@@ -67,27 +67,29 @@ CREATE TABLE tratamiento (
 -- Inserción en la tabla persona
 INSERT INTO persona (id, nombre, genero)
 VALUES
-    (1, 'Nurse Joy', 'm'),
-    (2, 'Ash Ketchum', 'h'),
-    (3, 'Misty', 'm'),
+    (1, 'Nurse Joy 1', 'm'),
+    (2, 'Nurse Joy 2', 'm'),
+    (3, 'Nurse Joy 3', 'm'),
+	(4, 'Roberto', 'h'),
     (5, 'Pepe', 'h'),
-    (6, 'Roberto', 'h'),
-    (7, 'Jesús', 'h'),
-    (8, 'Mar', 'h');
+    (6, 'Jesús', 'h'),
+    (7, 'Mar', 'm');
     
 
 -- Inserción en la tabla enfermera
 INSERT INTO enfermera (id, num_pokemon_tratados)
 VALUES
     (1, 10),
-    (2, 5);
+    (2, 5),
+    (3, 0);
 
 -- Inserción en la tabla entrenador
 INSERT INTO entrenador (id, num_medallas, saldo)
 VALUES
-    (2, 8, 1000),
-    (3, 0, 500),
-    (4, 2, 750);
+    (4, 8, 1000),
+    (5, 1, 500),
+    (6, 3, 500),
+    (7, 2, 750);
 
 -- Inserción en la tabla centro
 INSERT INTO centro (nombre, localidad, presupuesto, trabajador)
@@ -98,13 +100,13 @@ VALUES
 -- Inserción en la tabla pokemon
 INSERT INTO pokemon (nombre, peso, altura, tipo, vida, estado, id_entrenador)
 VALUES
-    ('Pikachu', 6.0, 0.4, 'Eléctrico', 35, 'Saludable', 2),
-    ('Bulbasaur', 6.9, 0.7, 'Planta/Veneno', 45, 'Envenenado', 2),
-    ('Charmander', 8.5, 0.6, 'Fuego', 39, 'Quemado', 2),
-    ('Squirtle', 9.0, 0.5, 'Agua', 44, 'Dormido', 2),
-    ('Psyduck', 19.6, 0.8, 'Agua', 50, 'Confundido', 3),
-    ('Starmie', 80.0, 1.1, 'Agua/Psíquico', 60, 'Saludable', 3),
-    ('Geodude', 20.0, 0.4, 'Roca/Tierra', 40, 'Saludable', 4),
+    ('Pikachu', 6.0, 0.4, 'Eléctrico', 35, 'Saludable', 5),
+    ('Bulbasaur', 6.9, 0.7, 'Planta/Veneno', 45, 'Envenenado', 4),
+    ('Charmander', 8.5, 0.6, 'Fuego', 39, 'Quemado', 4),
+    ('Squirtle', 9.0, 0.5, 'Agua', 44, 'Dormido', 6),
+    ('Psyduck', 19.6, 0.8, 'Agua', 50, 'Confundido', 6),
+    ('Starmie', 80.0, 1.1, 'Agua/Psíquico', 60, 'Saludable', 7),
+    ('Geodude', 20.0, 0.4, 'Roca/Tierra', 40, 'Saludable', 7),
     ('Onix', 210.0, 8.8, 'Roca/Tierra', 35, 'Herido', 4);
 
 -- Inserción en la tabla tratamiento
