@@ -88,7 +88,7 @@ public class App {
                 crud.Insert(nuevoCentro);            
 				break;
 			case 2:
-				//crud.Insert(nuevaEnfermera);
+				crud.Insert(nuevaEnfermera);
 				break;
 			case 3:
 				//crud.Insert(nuevoEntrenador);            
