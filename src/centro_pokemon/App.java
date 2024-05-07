@@ -61,7 +61,7 @@ public class App {
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
-			System.out.println("\\n-------- INSERT --------");
+			System.out.println("\n-------- INSERT --------");
 			System.out.println("\n1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n"
 					+ "4.- Pokemon\n" + "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
@@ -117,7 +117,7 @@ public class App {
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
-			System.out.println("\\n-------- SELECT --------");
+			System.out.println("\n-------- SELECT --------");
 			System.out.println("\n1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n"
 					+ "4.- Pokemon\n" + "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
