@@ -67,13 +67,13 @@ public class Crud {
         try {
 
             // Prepare the SQL statement
-            String insertQuery = "INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES (?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO enfermera (nombre, localidad, presupuesto, trabajador) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
             // Set parameter values
-            preparedStatement.setString(1, centroNuevo.getNombre());
-            preparedStatement.setString(2, centroNuevo.getLocalidad());
-            preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
-            preparedStatement.setInt(4, centroNuevo.getTrabajador());
+            preparedStatement.setString(1, enfermeraNueva.getNombre());
+            /*preparedStatement.setString(2, enfermeraNueva.getLocalidad());
+            preparedStatement.setDouble(3, enfermeraNueva.getPresupuesto());
+            preparedStatement.setInt(4, enfermeraNueva.getTrabajador());*/
             // Execute the prepared statement
             int rowsInserted = preparedStatement.executeUpdate();
             System.out.println(rowsInserted + " row(s) insertados.");
