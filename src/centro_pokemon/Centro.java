@@ -10,7 +10,6 @@ public class Centro {
 
 
     public Centro() {
-
     }
 
 

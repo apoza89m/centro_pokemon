@@ -85,12 +85,12 @@ public class App {
 
                 nuevoCentro.setTrabajador(nuevoTrabajador);
 
-                crud.Insert(nuevoCentro);            
+                crud.insertCentro(nuevoCentro);            
 				break;
 			case 2:
 				
 				Enfermera nuevaEnfermera = null;
-				crud.Insert(nuevaEnfermera);
+				crud.insertEnfermera(nuevaEnfermera);
 				break;
 			case 3:
 				//crud.Insert(nuevoEntrenador);            
@@ -99,7 +99,26 @@ public class App {
 				//crud.Insert(nuevoPokemon); 
 				break;
 			case 5: 
-				//crud.Insert(nuevoTratamiento); 
+				Tratamiento nuevoTratamiento = new Tratamiento();
+				//PEPE
+                /*System.out.println("Inserte nombre del centro");
+                String nuevoNombre = sc.next();
+                nuevoCentro.setNombre(nuevoNombre);
+
+                System.out.println("Inserte localidad");
+                String nuevaLocalidad = sc.next();
+                nuevoCentro.setLocalidad(nuevaLocalidad);
+
+                System.out.println("Inserte presupuesto");
+                Double nuevoPresupuesto = sc.nextDouble() ;
+                nuevoCentro.setPresupuesto(nuevoPresupuesto);
+
+                System.out.println("Introduce ID de trabajador");
+                int nuevoTrabajador = sc.nextInt() ;
+
+                nuevoCentro.setTrabajador(nuevoTrabajador);*/
+
+                crud.insertTratamiento(nuevoTratamiento);  
 				break;
 			case 6:
 				System.out.println("Volviendo al menu principal...");
@@ -124,21 +143,21 @@ public class App {
 			switch (selectMenu) {
 			case 1:
 				try {
-					crud.Select("centro");
+					crud.select("centro");
 
 				} catch (Exception e) {
 					System.out.println("Error al leer la base de datos");
 				}
 				break;
 			case 2:
-				crud.Select("enfermera");
+				crud.select("enfermera");
 				break;
 			case 3:
-				crud.Select("entrenador");            
+				crud.select("entrenador");            
 				break;
 			case 4:
 				try {
-					crud.Select("pokemon");
+					crud.select("pokemon");
 
 				} catch (Exception e) {
 					System.out.println("Error al leer la base de datos");
@@ -170,11 +189,12 @@ public class App {
 			switch (selectMenu) {
 			case 1:
 				System.out.println("Elige tupla a modificar");
-				crud.Select("centro");
+				crud.select("centro");
                 System.out.println("Inserte id del centro");
                 int centroID = sc.nextInt();
-                crud.SelectId("centro", centroID);
+                crud.selectId("centro", centroID);
 
+                //PEPE
                 /*
                 System.out.println("Inserte localidad");
                 String nuevaLocalidad = sc.next();
