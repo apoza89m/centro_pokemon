@@ -44,4 +44,33 @@ public class Tratamiento {
 	public int getIdEnfermera() {
 		return idEnfermera;
 	}
+
+	public void setIdTratamiento(int idTratamiento) {
+		this.idTratamiento = idTratamiento;
+	}
+
+	public void setDiagnostico(String diagnostico) {
+		this.diagnostico = diagnostico;
+	}
+
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public void setFechaBaja(LocalDate fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
+
+	public void setIdPokemon(int idPokemon) {
+		this.idPokemon = idPokemon;
+	}
+
+	public void setIdEnfermera(int idEnfermera) {
+		this.idEnfermera = idEnfermera;
+	}
+
 }
