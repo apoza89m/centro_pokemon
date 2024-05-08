@@ -1,11 +1,11 @@
 package centro_pokemon;
 
 public class Persona {
-	
+
 	private int id;
 	private String nombre;
-	private char genero;
-	
+	private String genero;
+
 	public Persona() {
 	}
 
@@ -25,14 +25,12 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
-	public char getGenero() {
+	public String getGenero() {
 		return genero;
 	}
 
-	public void setGenero(char genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
-	};
+	}
 	
-	
-
 }

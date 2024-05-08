@@ -20,9 +20,9 @@ public class App {
 		Crud crud = null;
 
 		int selectMenu = 0;
-		while (selectMenu != 7) {
+		while (selectMenu != 8) {
 			System.out.println("\nMENU PRINCIPAL \n1.- Conectar a bbdd\n" + "2.- Configurar bbdd\n" + "3.- CREATE\n"
-					+ "4.- READ\n" + "5.- UPDATE\n" + "6.- DELETE\n" + "7.- Salir\n");
+					+ "4.- READ\n" + "5.- UPDATE\n" + "6.- DELETE\n" + "7.- Curar pokemon\n" + "8.- Salir\n");
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
 			case 1:
@@ -32,18 +32,41 @@ public class App {
 				Conn.configuraConn();
 				break;
 			case 3:
-                menuInsert(crud);
+				try {
+					menuInsert(crud);
+				} catch (Exception e) {
+					System.out.println("Conecta a la base de datos primero.");
+				}
 				break;
 			case 4:
-				menuSelect(crud);
+				try {
+					menuSelect(crud);
+				} catch (Exception e) {
+					System.out.println("Conecta a la base de datos primero.");
+				}
 				break;
 			case 5:
-				menuUpdate(crud);
+				try {
+					menuUpdate(crud);
+				} catch (Exception e) {
+					System.out.println("Conecta a la base de datos primero.");
+				}
 				break;
 			case 6:
-				menuDelete(crud);
+				try {
+					menuDelete(crud);
+				} catch (Exception e) {
+					System.out.println("Conecta a la base de datos primero.");
+				}
 				break;
 			case 7:
+				try {
+					curarPokemon(crud);
+				} catch (Exception e) {
+					System.out.println("Conecta a la base de datos primero.");
+				}
+				break;
+			case 8:
 				System.out.println("¡Hasta luego Lucas!");
 				if (sc != null)
 					sc.close();
@@ -54,91 +77,126 @@ public class App {
 			}
 		}
 	}
-	
+
+	public static void curarPokemon(Crud crud) {
+	}
+
 	public static void menuInsert(Crud crud) {
-	
+
 		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
 			System.out.println("\n-------- INSERT --------");
-			System.out.println("\n1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n"
-					+ "4.- Pokemon\n" + "5.- Tratamiento\n" + "6.- Salir\n");
+			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
+					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
 			case 1:
 				Centro nuevoCentro = new Centro();
-                System.out.println("Inserte nombre del centro");
-                String nuevoNombre = sc.next();
-                nuevoCentro.setNombre(nuevoNombre);
+				System.out.println("Inserte nombre del centro");
+				String nuevoNombre = sc.next();
+				nuevoCentro.setNombre(nuevoNombre);
 
-                System.out.println("Inserte localidad");
-                String nuevaLocalidad = sc.next();
-                nuevoCentro.setLocalidad(nuevaLocalidad);
+				System.out.println("Inserte localidad");
+				String nuevaLocalidad = sc.next();
+				nuevoCentro.setLocalidad(nuevaLocalidad);
 
-                System.out.println("Inserte presupuesto");
-                Double nuevoPresupuesto = sc.nextDouble() ;
-                nuevoCentro.setPresupuesto(nuevoPresupuesto);
+				System.out.println("Inserte presupuesto");
+				Double nuevoPresupuesto = sc.nextDouble();
+				nuevoCentro.setPresupuesto(nuevoPresupuesto);
 
-                System.out.println("Introduce ID de trabajador");
-                int nuevoTrabajador = sc.nextInt() ;
+				System.out.println("Introduce ID de trabajador");
+				int nuevoTrabajador = sc.nextInt();
+				nuevoCentro.setTrabajador(nuevoTrabajador);
 
-                nuevoCentro.setTrabajador(nuevoTrabajador);
-
-                crud.insertCentro(nuevoCentro);            
+				crud.insertCentro(nuevoCentro);
 				break;
-			case 2:
 				
-				Enfermera nuevaEnfermera = null;
+			case 2:
+				Enfermera nuevaEnfermera = new Enfermera();
+
+				System.out.println("Inserte id de la enfermera");
+				nuevaEnfermera.setId(sc.nextInt());
+
+				System.out.println("Inserte nombre de la enfermera");
+				nuevaEnfermera.setNombre(sc.next());
+
+				System.out.println("Inserte genero(h/m)");
+				nuevaEnfermera.setGenero(sc.next());
+
+				nuevaEnfermera.setNumPokemonTratados(0);
+
 				crud.insertEnfermera(nuevaEnfermera);
 				break;
+				
 			case 3:
-				//crud.Insert(nuevoEntrenador);            
+				Entrenador nuevoEntrenador = new Entrenador();
+
+				System.out.println("Inserte id del entrenador");
+				nuevoEntrenador.setId(sc.nextInt());
+
+				System.out.println("Inserte nombre del entrenador");
+				nuevoEntrenador.setNombre(sc.next());
+
+				System.out.println("Inserte genero(h/m)");
+				nuevoEntrenador.setGenero(sc.next());
+
+				nuevoEntrenador.setNumMedallas(0);
+
+				System.out.println("Inserte saldo");
+				nuevoEntrenador.setSaldo(sc.nextDouble());
+
+				crud.insertEntrenador(nuevoEntrenador);
 				break;
+				
 			case 4:
-				//crud.Insert(nuevoPokemon); 
+				// crud.insertPokemon(nuevoPokemon);
 				break;
-			case 5: 
+				
+			case 5:
 				Tratamiento nuevoTratamiento = new Tratamiento();
-				//PEPE
-                /*System.out.println("Inserte nombre del centro");
-                String nuevoNombre = sc.next();
-                nuevoCentro.setNombre(nuevoNombre);
+				// PEPE
+				/*
+				 * System.out.println("Inserte nombre del centro"); String nuevoNombre =
+				 * sc.next(); nuevoCentro.setNombre(nuevoNombre);
+				 * 
+				 * System.out.println("Inserte localidad"); String nuevaLocalidad = sc.next();
+				 * nuevoCentro.setLocalidad(nuevaLocalidad);
+				 * 
+				 * System.out.println("Inserte presupuesto"); Double nuevoPresupuesto =
+				 * sc.nextDouble() ; nuevoCentro.setPresupuesto(nuevoPresupuesto);
+				 * 
+				 * System.out.println("Introduce ID de trabajador"); int nuevoTrabajador =
+				 * sc.nextInt() ;
+				 * 
+				 * nuevoCentro.setTrabajador(nuevoTrabajador);
+				 */
 
-                System.out.println("Inserte localidad");
-                String nuevaLocalidad = sc.next();
-                nuevoCentro.setLocalidad(nuevaLocalidad);
-
-                System.out.println("Inserte presupuesto");
-                Double nuevoPresupuesto = sc.nextDouble() ;
-                nuevoCentro.setPresupuesto(nuevoPresupuesto);
-
-                System.out.println("Introduce ID de trabajador");
-                int nuevoTrabajador = sc.nextInt() ;
-
-                nuevoCentro.setTrabajador(nuevoTrabajador);*/
-
-                crud.insertTratamiento(nuevoTratamiento);  
+				crud.insertTratamiento(nuevoTratamiento);
 				break;
+				
 			case 6:
 				System.out.println("Volviendo al menu principal...");
 				break;
+				
 			default:
 				System.out.println("Numero no reconocido");
 				continue;
+				
 			}
 		}
 	}
-	
+
 	public static void menuSelect(Crud crud) {
-		
+
 		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
 			System.out.println("\n-------- SELECT --------");
-			System.out.println("\n1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n"
-					+ "4.- Pokemon\n" + "5.- Tratamiento\n" + "6.- Salir\n");
+			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
+					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
 			case 1:
@@ -153,7 +211,7 @@ public class App {
 				crud.select("enfermera");
 				break;
 			case 3:
-				crud.select("entrenador");            
+				crud.select("entrenador");
 				break;
 			case 4:
 				try {
@@ -161,10 +219,10 @@ public class App {
 
 				} catch (Exception e) {
 					System.out.println("Error al leer la base de datos");
-				}  
+				}
 				break;
 			case 5:
-				//crud.Select("tratamiento");
+				// crud.Select("tratamiento");
 				break;
 			case 6:
 				System.out.println("Volviendo al menu principal...");
@@ -175,94 +233,146 @@ public class App {
 			}
 		}
 	}
-	
+
 	public static void menuUpdate(Crud crud) {
-		
+
 		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
 			System.out.println("\n-------- UPDATE --------");
-			System.out.println("\n1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n"
-					+ "4.- Pokemon\n" + "5.- Tratamiento\n" + "6.- Salir\n");
+			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
+					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
+
 			case 1:
-				System.out.println("Elige tupla a modificar");
-				crud.select("centro");
-                System.out.println("Inserte id del centro");
-                int centroID = sc.nextInt();
-                crud.selectId("centro", centroID);
-
-                //PEPE
-                /*
-                System.out.println("Inserte localidad");
-                String nuevaLocalidad = sc.next();
-                nuevoCentro.setLocalidad(nuevaLocalidad);
-
-                System.out.println("Inserte presupuesto");
-                Double nuevoPresupuesto = sc.nextDouble() ;
-                nuevoCentro.setPresupuesto(nuevoPresupuesto);
-
-                System.out.println("Introduce ID de trabajador");
-                int nuevoTrabajador = sc.nextInt() ;
-
-                nuevoCentro.setTrabajador(nuevoTrabajador);
-
-                crud.Update("centro",centroID);
-                */            
+				// CODIGO JESUS
 				break;
 			case 2:
-				//crud.Update("enfermera",centroID);
+				crud.select("enfermera");
+				System.out.println("Elige id a modificar: ");
+				int enfermeraID = sc.nextInt();
+
+				if (crud.selectId("enfermera", enfermeraID) != null) {
+					System.out.println("Elige campo a modificar: ");
+					System.out.println("1.- nombre\n" + "2.- genero\n" + "3.- num_pokemon_tratados\n");
+					int opcionEnfermera = sc.nextInt();
+
+					switch (opcionEnfermera) {
+					case 1:
+						crud.updateEnfermera(enfermeraID, "nombre");
+						break;
+					case 2:
+						crud.updateEnfermera(enfermeraID, "genero");
+						break;
+					case 3:
+						crud.updateEnfermera(enfermeraID, "num_pokemon_tratados");
+						break;
+					default:
+						System.out.println("Saliendo...");
+						break;
+					}
+				} else
+					System.out.println("Esa ID no existe");
 				break;
 			case 3:
-				//crud.Update("entrenador",centroID);            
+				crud.select("entrenador");
+				System.out.println("Elige id a modificar: ");
+				int entrenadorID = sc.nextInt();
+
+				if (crud.selectId("entrenador", entrenadorID) != null) {
+					System.out.println("Elige campo a modificar: ");
+					System.out.println("1.- nombre\n" + "2.- genero\n" + "3.- num_medallas\n" + "4.- saldo\n");
+					int opcionEntrenador = sc.nextInt();
+					switch (opcionEntrenador) {
+					case 1:
+						crud.updateEntrenador(entrenadorID, "nombre");
+						break;
+					case 2:
+						crud.updateEntrenador(entrenadorID, "genero");
+						break;
+					case 3:
+						crud.updateEntrenador(entrenadorID, "num_medallas");
+						break;
+					case 4:
+						crud.updateEntrenador(entrenadorID, "saldo");
+						break;
+					default:
+						System.out.println("Saliendo...");
+						break;
+					}
+				} else
+					System.out.println("Esa ID no existe");
 				break;
 			case 4:
-				//crud.Update("pokemon",centroID);  
+				// CODIGO MAR
 				break;
-			case 5: 
-				//crud.Update("tratamiento",centroID);  
+			case 5:
+				// CODIGO PEPE
 				break;
+
 			case 6:
 				System.out.println("Volviendo al menu principal...");
 				break;
+
 			default:
 				System.out.println("Numero no reconocido");
 				continue;
 			}
 		}
+
 	}
-	
+
 	public static void menuDelete(Crud crud) {
-		
+
 		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
 			System.out.println("\n-------- DELETE --------");
-			System.out.println("\n1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n"
-					+ "4.- Pokemon\n" + "5.- Tratamiento\n" + "6.- Salir\n");
+			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
+					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
 			case 1:
-				//crud.Delete("centro",centroID);            
+				// crud.Delete("centro",centroID);
 				break;
+
 			case 2:
-				//crud.Delete("enfermera,centroID); 
+				crud.select("enfermera");
+				System.out.println("Elige id a eliminar: ");
+				int enfermeraID = sc.nextInt();
+
+				if (crud.selectId("enfermera", enfermeraID) != null)
+					crud.deleteEnfermera(enfermeraID);
+				else
+					System.out.println("Esa ID no existe");
 				break;
+
 			case 3:
-				//crud.Delete("entrenador",centroID);            
+				crud.select("entrenador");
+				System.out.println("Elige id a eliminar: ");
+				int entrenadorID = sc.nextInt();
+
+				if (crud.selectId("entrenador", entrenadorID) != null)
+					crud.deleteEntrenador(entrenadorID);
+				else
+					System.out.println("Esa ID no existe");
 				break;
+
 			case 4:
-				//crud.Delete("pokemon",centroID); 
+				// crud.Delete("pokemon",centroID);
 				break;
-			case 5: 
-				//crud.Delete("tratamiento",centroID); 
+
+			case 5:
+				// crud.Delete("tratamiento",centroID);
 				break;
+
 			case 6:
 				System.out.println("Volviendo al menu principal...");
 				break;
+
 			default:
 				System.out.println("Numero no reconocido");
 				continue;

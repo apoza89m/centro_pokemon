@@ -35,71 +35,115 @@ public class Crud {
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
-		
+
 	public Scanner getSc() {
 		return sc;
 	}
-	
+
 	public void insertCentro(Centro centroNuevo) {
 
-        try {
-            // Prepare the SQL statement
-            String insertQuery = "INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
-            // Set parameter values
-            preparedStatement.setString(1, centroNuevo.getNombre());
-            preparedStatement.setString(2, centroNuevo.getLocalidad());
-            preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
-            preparedStatement.setInt(4, centroNuevo.getTrabajador());
-            // Execute the prepared statement
-            int rowsInserted = preparedStatement.executeUpdate();
-            System.out.println(rowsInserted + " row(s) insertados.");
+		try {
+			// Prepare the SQL statement
+			String insertQuery = "INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES (?, ?, ?, ?)";
+			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
+			// Set parameter values
+			preparedStatement.setString(1, centroNuevo.getNombre());
+			preparedStatement.setString(2, centroNuevo.getLocalidad());
+			preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
+			preparedStatement.setInt(4, centroNuevo.getTrabajador());
+			// Execute the prepared statement
+			int rowsInserted = preparedStatement.executeUpdate();
+			System.out.println(rowsInserted + " row(s) insertados.");
 
-        } catch (SQLException e) {
-            System.out.println("Error al insertar");
-            // e.printStackTrace();
-        }
-}
+		} catch (SQLException e) {
+			System.out.println("Error al insertar");
+			// e.printStackTrace();
+		}
+	}
+
+
+
+	public void insertEnfermera(Enfermera nuevaEnfermera) {
+
+		try {
+			// Prepare the SQL statement
+			String insertQueryPersona = "INSERT INTO persona (id, nombre, genero) VALUES (?, ?, ?)";
+			String insertQueryEnfermera = "INSERT INTO enfermera (id, num_pokemon_tratados) VALUES (?, ?)";
+			PreparedStatement preparedStatementPersona = conn.prepareStatement(insertQueryPersona);
+			// Set parameter values
+			preparedStatementPersona.setInt(1, nuevaEnfermera.getId());
+			preparedStatementPersona.setString(2, nuevaEnfermera.getNombre());
+			preparedStatementPersona.setString(3, nuevaEnfermera.getGenero());
+			// Execute the prepared statement
+			int rowsInserted1 = preparedStatementPersona.executeUpdate();
+			System.out.println(rowsInserted1 + " row(s) insertados.");
+
+			PreparedStatement preparedStatementEnfermera = conn.prepareStatement(insertQueryEnfermera);
+			// Set parameter values
+			preparedStatementEnfermera.setInt(1, nuevaEnfermera.getId());
+			preparedStatementEnfermera.setInt(2, nuevaEnfermera.getNumPokemonTratados());
+			// Execute the prepared statement
+			int rowsInserted2 = preparedStatementEnfermera.executeUpdate();
+			System.out.println(rowsInserted2 + " row(s) insertados.");
+
+		} catch (SQLException e) {
+			System.out.println("Error al insertar");
+			// e.printStackTrace();
+		}
+	}
+
+	public void insertEntrenador(Entrenador nuevoEntrenador) {
+
+		try {
+			// Prepare the SQL statement
+			String insertQueryPersona = "INSERT INTO persona (id, nombre, genero) VALUES (?, ?, ?)";
+			String insertQueryEntrenador = "INSERT INTO entrenador (id, num_medallas, saldo) VALUES (?, ?, ?)";
+			PreparedStatement preparedStatementPersona = conn.prepareStatement(insertQueryPersona);
+			// Set parameter values
+			preparedStatementPersona.setInt(1, nuevoEntrenador.getId());
+			preparedStatementPersona.setString(2, nuevoEntrenador.getNombre());
+			preparedStatementPersona.setString(3, nuevoEntrenador.getGenero());
+			// Execute the prepared statement
+			int rowsInserted1 = preparedStatementPersona.executeUpdate();
+			System.out.println(rowsInserted1 + " row(s) insertados.");
+
+			PreparedStatement preparedStatementEntrenador = conn.prepareStatement(insertQueryEntrenador);
+			// Set parameter values
+			preparedStatementEntrenador.setInt(1, nuevoEntrenador.getId());
+			preparedStatementEntrenador.setInt(2, nuevoEntrenador.getNumMedallas());
+			preparedStatementEntrenador.setDouble(3, nuevoEntrenador.getSaldo());
+			// Execute the prepared statement
+			int rowsInserted2 = preparedStatementEntrenador.executeUpdate();
+			System.out.println(rowsInserted2 + " row(s) insertados.");
+
+		} catch (SQLException e) {
+			System.out.println("Error al insertar");
+			// e.printStackTrace();
+		}
+	}
+	
 	public void insertTratamiento(Tratamiento tratamientoNuevo) {
 
 		try {
 			String insertQuery = "INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
-            //PEPE
-            // Set parameter values
-            /*preparedStatement.setString(1, centroNuevo.getNombre());
-            preparedStatement.setString(2, centroNuevo.getLocalidad());
-            preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
-            preparedStatement.setInt(4, centroNuevo.getTrabajador());*/
-            // Execute the prepared statement
-            int rowsInserted = preparedStatement.executeUpdate();
-            System.out.println(rowsInserted + " row(s) insertados.");
+			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
+			// PEPE
+			// Set parameter values
+			/*
+			 * preparedStatement.setString(1, centroNuevo.getNombre());
+			 * preparedStatement.setString(2, centroNuevo.getLocalidad());
+			 * preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
+			 * preparedStatement.setInt(4, centroNuevo.getTrabajador());
+			 */
+			// Execute the prepared statement
+			int rowsInserted = preparedStatement.executeUpdate();
+			System.out.println(rowsInserted + " row(s) insertados.");
 
-        } catch (SQLException e) {
-            System.out.println("Error al insertar");
-            // e.printStackTrace();
-        }
+		} catch (SQLException e) {
+			System.out.println("Error al insertar");
+			// e.printStackTrace();
+		}
 	}
-	public void insertEnfermera(Enfermera enfermeraNueva) {
-
-        try {
-            // Prepare the SQL statement
-            String insertQuery = "INSERT INTO enfermera (nombre, localidad, presupuesto, trabajador) VALUES (?, ?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
-            // Set parameter values
-            preparedStatement.setString(1, enfermeraNueva.getNombre());
-            /*preparedStatement.setString(2, enfermeraNueva.getLocalidad());
-            preparedStatement.setDouble(3, enfermeraNueva.getPresupuesto());
-            preparedStatement.setInt(4, enfermeraNueva.getTrabajador());*/
-            // Execute the prepared statement
-            int rowsInserted = preparedStatement.executeUpdate();
-            System.out.println(rowsInserted + " row(s) insertados.");
-
-        } catch (SQLException e) {
-            System.out.println("Error al insertar");
-            // e.printStackTrace();
-        }
-}
 
 	public void select(String... tablaOpcional) { // String... permite 0 o mas parametros, array[]
 
@@ -154,9 +198,9 @@ public class Crud {
 					int id = resultSet.getInt("id");
 					String nombre = resultSet.getString("nombre");
 					char genero = resultSet.getString("genero").charAt(0);
-							
+					int numPokemonTratados = resultSet.getInt("num_pokemon_tratados");
 					System.out.println("ID: " + id + ", Nombre: " + nombre + ", genero: " + genero
-							+ ", Inventario: ");
+							+ ", Numero de pokemon tratados: " + numPokemonTratados);
 				}
 			} catch (SQLException e) {
 				System.out.println("Error al leer");
@@ -178,13 +222,10 @@ public class Crud {
 					String nombre = resultSet.getString("nombre");
 					char genero = resultSet.getString("genero").charAt(0);
 					int numMedallas = resultSet.getInt("num_medallas");
-					int saldo = resultSet.getInt("saldo");
-					
-					
+					double saldo = resultSet.getDouble("saldo");
 
 					System.out.println("ID: " + id + ", Nombre: " + nombre + ", genero: " + genero
-							+ ", Numero de medallas: " + numMedallas +  ", pokedex: " + 
-							", depot: " +  ", saldo: " + saldo);
+							+ ", Numero de medallas: " + numMedallas + ", saldo: " + saldo);
 				}
 			} catch (SQLException e) {
 				System.out.println("Error al leer");
@@ -251,73 +292,82 @@ public class Crud {
 
 	}
 
-	//ROBE
-	public boolean selectId(String tabla, int idSelect) {
-		
-		// int idSelect = objeto.getId();
-		
+	public Object selectId(String tabla, int id) {
+
 		switch (tabla) {
 		case "centro":
+			// CODIGO JESUS
+		case "enfermera":
+			Enfermera enfermera = null;
 			try {
-				// Create a statement
-				Statement statement = conn.createStatement();
-				// Execute a query
-				String query = "SELECT * FROM centro WHERE id = " + idSelect;
+				// Preparar la consulta SQL
+				String sqlPersona = "SELECT * FROM persona WHERE id = ?";
+				String sqlEnfermera = "SELECT * FROM enfermera WHERE id = ?";
+				PreparedStatement statementPersona = conn.prepareStatement(sqlPersona);
+				PreparedStatement statementEnfermera = conn.prepareStatement(sqlEnfermera);
 
-				ResultSet resultSet = statement.executeQuery(query);
+				statementPersona.setInt(1, id);
+				statementEnfermera.setInt(1, id);
 
-				// Process the results
-				while (resultSet.next()) {
-					int id = resultSet.getInt("id");
-					String nombre = resultSet.getString("nombre");
-					String localidad = resultSet.getString("localidad");
-					double presupuesto = resultSet.getDouble("presupuesto");
-					int trabajador = resultSet.getInt("trabajador");
-					System.out.println("ID: " + id + ", Nombre: " + nombre + ", Localidad: " + localidad + ", Presupuesto: " + presupuesto
-							+ ", Trabajador: " + trabajador);
-					return true;
+				// Ejecutar la consulta y obtener el resultado
+				ResultSet resultSetPersona = statementPersona.executeQuery();
+				if (resultSetPersona.next()) {
+					enfermera = new Enfermera();
+					enfermera.setId(resultSetPersona.getInt("id"));
+					enfermera.setNombre(resultSetPersona.getString("nombre"));
+					enfermera.setGenero(resultSetPersona.getString("genero"));
+				}
+
+				ResultSet resultSetEnfermera = statementEnfermera.executeQuery();
+				if (resultSetEnfermera.next()) {
+					enfermera.setNumPokemonTratados(resultSetEnfermera.getInt("num_pokemon_tratados"));
 				}
 			} catch (SQLException e) {
-				System.out.println("Error al leer la tabla");
-				// e.printStackTrace();
+				System.out.println("No existe esa ID");
 			}
-			break;
+			return enfermera;
+			
+		case "entrenador":
+			Entrenador entrenador = null;
+			try {
+				// Preparar la consulta SQL
+				String sqlPersona = "SELECT * FROM persona WHERE id = ?";
+				String sqlEntrenador = "SELECT * FROM entrenador WHERE id = ?";
+				PreparedStatement statementPersona = conn.prepareStatement(sqlPersona);
+				PreparedStatement statementEntrenador = conn.prepareStatement(sqlEntrenador);
+
+				statementPersona.setInt(1, id);
+				statementEntrenador.setInt(1, id);
+
+				// Ejecutar la consulta y obtener el resultado
+				ResultSet resultSetPersona = statementPersona.executeQuery();
+				if (resultSetPersona.next()) {
+					entrenador = new Entrenador();
+					entrenador.setId(resultSetPersona.getInt("id"));
+					entrenador.setNombre(resultSetPersona.getString("nombre"));
+					entrenador.setGenero(resultSetPersona.getString("genero"));
+				}
+
+				ResultSet resultSetEntrenador = statementEntrenador.executeQuery();
+				if (resultSetEntrenador.next()) {
+					entrenador.setNumMedallas(resultSetEntrenador.getInt("num_medallas"));
+					entrenador.setSaldo(resultSetEntrenador.getDouble("saldo"));
+				}
+			} catch (SQLException e) {
+				System.out.println("No existe esa ID");
+			}
+			return entrenador;
+			
 		case "pokemon":
-			try {
-				// Create a statement
-				Statement statement = conn.createStatement();
-				// Execute a query
-				String query = "SELECT * FROM pokemon WHERE id_poke = " + idSelect;
-
-				ResultSet resultSet = statement.executeQuery(query);
-
-				// Process the results
-				while (resultSet.next()) {
-					int id = resultSet.getInt("id_poke");
-					String nombre = resultSet.getString("nombre");
-					double peso = resultSet.getDouble("peso");
-					double altura = resultSet.getDouble("altura");
-					String tipo = resultSet.getString("tipo");
-					int vida = resultSet.getInt("vida");
-					String estado = resultSet.getString("estado");
-					int id_entrenador = resultSet.getInt("id_entrenador");
-					System.out.println("ID: " + id + ", Nombre: " + nombre + ", Peso: " + peso + ", Altura: " + altura
-							+ ", Tipo: " + tipo + ", Vida: " + vida + ", Estado: " + estado + ", Id_entrenador: "
-							+ id_entrenador);
-					return true;
-				}
-			} catch (SQLException e) {
-				System.out.println("Error al leer la tabla");
-				// e.printStackTrace();
-			}
-			break;
+			// CODIGO Mar
+			
+		case "tratamiento":
+			// CODIGO PEPE
 			
 		default:
 			System.out.println("No existe tabla para ese objeto");
-			return false;
+			return null;
 		}
-		return false;
-
 	}
 
 	public void update() {
@@ -328,47 +378,118 @@ public class Crud {
 		 * System.out.println(rowsUpdated + " row(s) updated.");
 		 */
 	}
-	
+
 	public void updateCentro(Centro centro) {
+		// JESUS
+
+	}
+
+	public void updateEnfermera(int id, String campo) {
 		try {
-			// Execute a query
-			//JESUS
-			String updateQuery = "UPDATE tratamiento SET diagnostico=?, fecha_alta=?, fecha_baja=?, costo=?, id_poke=?, id_enfermera=? WHERE id_tratamiento=?";
-            PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
-           /* preparedStatement.setString(1, tratamiento.getDiagnostico());
-            preparedStatement.setDate(2, Date.valueOf(tratamiento.getFechaAlta()));
-            preparedStatement.setDate(3, Date.valueOf(tratamiento.getFechaBaja()));
-            preparedStatement.setDouble(4, tratamiento.getCosto());
-            preparedStatement.setInt(5, tratamiento.getIdPokemon());
-            preparedStatement.setInt(6, tratamiento.getIdEnfermera());
-            preparedStatement.setInt(7, tratamiento.getIdTratamiento());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();*/
-			System.out.println("Tratamiento actualizado correctamente.");
+			switch (campo) {
+
+			case "nombre":
+				System.out.print("Ingrese el nuevo nombre: ");
+				String nuevoNombre = sc.next();
+				String updateQueryNombre = "UPDATE persona SET nombre=? WHERE id=?";
+				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
+				statementNombre.setString(1, nuevoNombre);
+				statementNombre.setInt(2, id);
+				statementNombre.executeUpdate();
+				break;
+
+			case "genero":
+				System.out.print("Ingrese el nuevo genero(h/m): ");
+				String nuevoGenero = sc.next();
+				String updateQueryGenero = "UPDATE persona SET genero=? WHERE id=?";
+				PreparedStatement statementGenero = conn.prepareStatement(updateQueryGenero);
+				statementGenero.setString(1, nuevoGenero);
+				statementGenero.setInt(2, id);
+				statementGenero.executeUpdate();
+				break;
+
+			case "num_pokemon_tratados":
+				System.out.print("Ingrese el nuevo numero de pokemon tratados: ");
+				int nuevoNum = sc.nextInt();
+				String updateQueryNum = "UPDATE enfermera SET num_pokemon_tratados=? WHERE id=?";
+				PreparedStatement statementNum = conn.prepareStatement(updateQueryNum);
+				statementNum.setInt(1, nuevoNum);
+				statementNum.setInt(2, id);
+				statementNum.executeUpdate();
+				break;
+
+			default:
+				System.out.println("Campo no valido.");
+				break;
+			}
+			System.out.println("Actualizado correctamente.");
+			System.out.println(selectId("enfermera", id));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Error al modificar");
 		}
 	}
-	
-	public void updateTratamiento(Tratamiento tratamiento) {
+
+	public void updateEntrenador(int id, String campo) {
 		try {
-			// Execute a query
-			//PEPE
-			String updateQuery = "UPDATE tratamiento SET diagnostico=?, fecha_alta=?, fecha_baja=?, costo=?, id_poke=?, id_enfermera=? WHERE id_tratamiento=?";
-            PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
-           /* preparedStatement.setString(1, tratamiento.getDiagnostico());
-            preparedStatement.setDate(2, Date.valueOf(tratamiento.getFechaAlta()));
-            preparedStatement.setDate(3, Date.valueOf(tratamiento.getFechaBaja()));
-            preparedStatement.setDouble(4, tratamiento.getCosto());
-            preparedStatement.setInt(5, tratamiento.getIdPokemon());
-            preparedStatement.setInt(6, tratamiento.getIdEnfermera());
-            preparedStatement.setInt(7, tratamiento.getIdTratamiento());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();*/
-			System.out.println("Tratamiento actualizado correctamente.");
+			switch (campo) {
+
+			case "nombre":
+				System.out.print("Ingrese el nuevo nombre: ");
+				String nuevoNombre = sc.next();
+				String updateQueryNombre = "UPDATE persona SET nombre=? WHERE id=?";
+				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
+				statementNombre.setString(1, nuevoNombre);
+				statementNombre.setInt(2, id);
+				statementNombre.executeUpdate();
+				break;
+
+			case "genero":
+				System.out.print("Ingrese el nuevo genero(h/m): ");
+				String nuevoGenero = sc.next();
+				String updateQueryGenero = "UPDATE persona SET genero=? WHERE id=?";
+				PreparedStatement statementGenero = conn.prepareStatement(updateQueryGenero);
+				statementGenero.setString(1, nuevoGenero);
+				statementGenero.setInt(2, id);
+				statementGenero.executeUpdate();
+				break;
+
+			case "num_medallas":
+				System.out.print("Ingrese el nuevo numero de medallas: ");
+				int nuevoNum = sc.nextInt();
+				String updateQueryNum = "UPDATE entrenador SET num_medallas=? WHERE id=?";
+				PreparedStatement statementNum = conn.prepareStatement(updateQueryNum);
+				statementNum.setInt(1, nuevoNum);
+				statementNum.setInt(2, id);
+				statementNum.executeUpdate();
+				break;
+
+			case "saldo":
+				System.out.print("Ingrese el nuevo saldo: ");
+				double nuevoSaldo = sc.nextDouble();
+				String updateQuerySaldo = "UPDATE entrenador SET saldo=? WHERE id=?";
+				PreparedStatement statementSaldo = conn.prepareStatement(updateQuerySaldo);
+				statementSaldo.setDouble(1, nuevoSaldo);
+				statementSaldo.setInt(2, id);
+				statementSaldo.executeUpdate();
+				break;
+
+			default:
+				System.out.println("Campo no valido.");
+				break;
+			}
+			System.out.println("Actualizado correctamente.");
+			System.out.println(selectId("entrenador", id));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Error al modificar");
 		}
+	}
+
+	public void updatePokemon(Tratamiento tratamiento) {
+		// MAR
+	}
+
+	public void updateTratamiento(Tratamiento tratamiento) {
+		// PEPE
 	}
 
 	public void delete() {
@@ -379,24 +500,74 @@ public class Crud {
 		 * System.out.println(rowsDeleted +" row(s) deleted.");
 		 */
 	}
-	
+
 	public void deleteCentro(Centro centro) {
 		try {
+
+			// JESUS
 			String deleteQuery = "DELETE FROM tratamiento WHERE id_tratamiento=?";
-			
+
 			PreparedStatement preparedStatement = conn.prepareStatement(deleteQuery);
-			//JESUS
 			/*
-			preparedStatement.setInt(1, tratamiento.getIdTratamiento());
-			preparedStatement.executeUpdate();
-			preparedStatement.close();
-			System.out.println("Tratamiento eliminado correctamente.");*/
+			 * preparedStatement.setInt(1, tratamiento.getIdTratamiento());
+			 * preparedStatement.executeUpdate(); preparedStatement.close();
+			 * System.out.println("Tratamiento eliminado correctamente.");
+			 */
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void deleteEnfermera(int id) {
+		try {
+			String deleteQueryEnfermera = "DELETE FROM enfermera WHERE id=?";
+			String deleteQueryPersona = "DELETE FROM persona WHERE id=?";
+
+			PreparedStatement statementEnfermera = conn.prepareStatement(deleteQueryEnfermera);
+			statementEnfermera.setInt(1, id);
+			statementEnfermera.executeUpdate();
+
+			PreparedStatement statementPersona = conn.prepareStatement(deleteQueryPersona);
+			statementPersona.setInt(1, id);
+			statementPersona.executeUpdate();
+			
+			System.out.println("Eliminacion correcta");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteEntrenador(int id) {
+		try {
+
+			String updateQueryPokemon = "UPDATE pokemon SET id_entrenador = NULL WHERE id_entrenador = ?";
+			String deleteQueryEntrenador = "DELETE FROM entrenador WHERE id=?";
+			String deleteQueryPersona = "DELETE FROM persona WHERE id=?";
+			
+			// Hay que updatear todos los pokemon con FK de ese id_entrenador
+			PreparedStatement statementPokemon = conn.prepareStatement(updateQueryPokemon);
+			statementPokemon.setInt(1, id);
+			statementPokemon.executeUpdate();		
+
+			PreparedStatement statementEntrenador = conn.prepareStatement(deleteQueryEntrenador);
+			statementEntrenador.setInt(1, id);
+			statementEntrenador.executeUpdate();
+
+			PreparedStatement statementPersona = conn.prepareStatement(deleteQueryPersona);
+			statementPersona.setInt(1, id);
+			statementPersona.executeUpdate();
+			
+			System.out.println("Eliminacion correcta");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void deleteTratamiento(Tratamiento tratamiento) {
+
+		// PEPE
 		try {
 			String deleteQuery = "DELETE FROM tratamiento WHERE id_tratamiento=?";
 			PreparedStatement preparedStatement = conn.prepareStatement(deleteQuery);

@@ -1,12 +1,33 @@
 package centro_pokemon;
 
-import java.util.List;
+public class Entrenador extends Persona {
 
-public class Entrenador {
-	
 	private int numMedallas;
-	private List<Integer> pokedex;
-	private List<Integer> depot;
-	private int saldo;
+	private double saldo;
+
+	public Entrenador() {
+	}
+
+	public int getNumMedallas() {
+		return numMedallas;
+	}
+
+	public void setNumMedallas(int numMedallas) {
+		this.numMedallas = numMedallas;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+
+	@Override
+	public String toString() {
+		return "Entrenador [id = " + getId() + ", nombre = " + getNombre() + ", genero = " + getGenero()
+				+ ", medallas = " + numMedallas + ", saldo = " + saldo + "]";
+	}
 
 }

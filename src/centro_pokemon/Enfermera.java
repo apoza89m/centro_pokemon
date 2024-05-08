@@ -1,9 +1,23 @@
 package centro_pokemon;
 
-import java.util.Map;
+public class Enfermera extends Persona {
 
-public class Enfermera extends Persona{
-	
-private Map<String,Integer> inventario;
+	private int numPokemonTratados;
+
+	public Enfermera() {
+	}
+
+	public int getNumPokemonTratados() {
+		return numPokemonTratados;
+	}
+
+	public void setNumPokemonTratados(int numPokemonTratados) {
+		this.numPokemonTratados = numPokemonTratados;
+	}
+
+	@Override
+	public String toString() {
+		return "Enfermera [id = " + getId() + ", nombre = " + getNombre() + ", genero = " + getGenero() + ", Numero de pokemon tratados = " + numPokemonTratados + "]";
+	}
 
 }
