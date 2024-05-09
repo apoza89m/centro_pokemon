@@ -45,7 +45,7 @@ public class Conn {
 	public static void configuraConn() {
 
 		Scanner sc = new Scanner(System.in);
-		
+
 		String pass = "";
 
 		System.out.println("------------ MySQL JDBC Configuration------------");
@@ -58,7 +58,7 @@ public class Conn {
 		;
 		System.out.printf("\nUsuario: %n");
 		String usuario = sc.next();
-		
+
 		// En el caso de root no preguntamos por password
 		if (!usuario.equals("root")) {
 			System.out.printf("\nPass: %n");
@@ -77,15 +77,15 @@ public class Conn {
 
 			setUrl(nombre);
 			setUsername(usuario);
-			setPassword(pass);			
+			setPassword(pass);
 
 			System.out.println("------------ Datos actualizados! ------------");
-			
+
 			// Una vez comprobado que funciona, desconectamos
-			
+
 			if (sc != null)
 				sc.close();
-			
+
 			if (connection != null)
 				cierraConn(connection);
 
@@ -105,12 +105,12 @@ public class Conn {
 			System.out.println("Error al usar driver mysql");
 			// e.printStackTrace();
 		}
-		
-		System.out.println("MySQL JDBC Driver Registrado!");
+
+		System.out.println("MySQL JDBC Driver Registrado");
 
 		try {
 			Connection connection = DriverManager.getConnection(url, username, password);
-			System.out.println("------------ Conexion exitosa! ------------");
+			System.out.println("------------ Conexion exitosa ------------");
 			return connection;
 
 		} catch (SQLException e) {
