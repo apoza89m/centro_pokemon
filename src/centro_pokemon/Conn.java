@@ -106,11 +106,11 @@ public class Conn {
 			// e.printStackTrace();
 		}
 		
-		System.out.println("MySQL JDBC Driver Registrado!");
+		System.out.println("MySQL JDBC Driver Registrado");
 
 		try {
 			Connection connection = DriverManager.getConnection(url, username, password);
-			System.out.println("------------ Conexion exitosa! ------------");
+			System.out.println("------------ Conexion exitosa ------------");
 			return connection;
 
 		} catch (SQLException e) {

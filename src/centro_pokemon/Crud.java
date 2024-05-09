@@ -20,11 +20,10 @@ import java.util.Scanner;
 public class Crud {
 
 	private Connection conn = null;
-	Scanner sc;
+	static Scanner sc = new Scanner(System.in);;
 
 	public Crud() {
 		this.conn = Conn.dameConn();
-		sc = new Scanner(System.in);
 		// if (sc != null) sc.close();
 	}
 
@@ -34,10 +33,6 @@ public class Crud {
 
 	public void setConn(Connection conn) {
 		this.conn = conn;
-	}
-
-	public Scanner getSc() {
-		return sc;
 	}
 
 	public void insertCentro(Centro centroNuevo) {
@@ -122,7 +117,7 @@ public class Crud {
 		}
 	}
 	
-	public void insertTratamiento(Tratamiento tratamientoNuevo) {
+	public void insertTratamiento(Tratamiento nuevoTratamiento) {
 
 		try {
 			String insertQuery = "INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES (?, ?, ?, ?, ?, ?)";
@@ -370,15 +365,6 @@ public class Crud {
 		}
 	}
 
-	public void update() {
-		/*
-		 * // Update data String updateQuery =
-		 * "UPDATE users SET email = 'johndoe@example.com' WHERE id = 1"; int
-		 * rowsUpdated = statement.executeUpdate(updateQuery);
-		 * System.out.println(rowsUpdated + " row(s) updated.");
-		 */
-	}
-
 	public void updateCentro(Centro centro) {
 		// JESUS
 
@@ -492,15 +478,6 @@ public class Crud {
 		// PEPE
 	}
 
-	public void delete() {
-
-		/*
-		 * // Delete data String deleteQuery = "DELETE FROM users WHERE id = 1"; int
-		 * rowsDeleted = statement.executeUpdate(deleteQuery);
-		 * System.out.println(rowsDeleted +" row(s) deleted.");
-		 */
-	}
-
 	public void deleteCentro(Centro centro) {
 		try {
 
@@ -578,6 +555,30 @@ public class Crud {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void muestraPokemon (int id_entrenador) {
+		try {
+            String query = "SELECT * FROM pokemon WHERE id_entrenador = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setInt(1, id_entrenador);
+            ResultSet resultSet = statement.executeQuery();
+
+            System.out.println("Pokemon(s) del entrenador con ID " + id_entrenador + ":");
+
+            while (resultSet.next()) {
+                int id_pokemon = resultSet.getInt("id_poke");
+                String nombre = resultSet.getString("nombre");
+                System.out.println("ID: " + id_pokemon + ", Nombre: " + nombre);
+            }
+        } catch (SQLException e) {
+            System.out.println("No existe esa ID");
+        }
+		
+	}
+	
+	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) {
+		System.out.println("DESARROLLAR");	
 	}
 
 }
