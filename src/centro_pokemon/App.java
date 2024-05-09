@@ -1,5 +1,6 @@
 package centro_pokemon;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -177,22 +178,27 @@ public class App {
 
 			case 5:
 				Tratamiento nuevoTratamiento = new Tratamiento();
-				// PEPE
-				/*
-				 * System.out.println("Inserte nombre del centro"); String nuevoNombre =
-				 * sc.next(); nuevoCentro.setNombre(nuevoNombre);
-				 * 
-				 * System.out.println("Inserte localidad"); String nuevaLocalidad = sc.next();
-				 * nuevoCentro.setLocalidad(nuevaLocalidad);
-				 * 
-				 * System.out.println("Inserte presupuesto"); Double nuevoPresupuesto =
-				 * sc.nextDouble() ; nuevoCentro.setPresupuesto(nuevoPresupuesto);
-				 * 
-				 * System.out.println("Introduce ID de trabajador"); int nuevoTrabajador =
-				 * sc.nextInt() ;
-				 * 
-				 * nuevoCentro.setTrabajador(nuevoTrabajador);
-				 */
+
+				System.out.println("Inserte ID del tratamiento: ");
+				nuevoTratamiento.setIdTratamiento(sc.nextInt());
+
+				System.out.println("Inserte diagnóstico: ");
+				nuevoTratamiento.setDiagnostico(sc.next());
+
+				System.out.println("Inserte fecha de alta con el siguiente formato (YYYY-MM-DD): ");
+				nuevoTratamiento.setFechaAlta(LocalDate.parse(sc.next()));
+
+				System.out.println("Inserte fecha de baja con el siguiente formato(YYYY-MM-DD): ");
+				nuevoTratamiento.setFechaBaja(LocalDate.parse(sc.next()));
+
+				System.out.println("Inserte costo: ");
+				nuevoTratamiento.setCosto(sc.nextDouble());
+
+				System.out.println("Inserte ID del Pokemon: ");
+				nuevoTratamiento.setIdPokemon(sc.nextInt());
+
+				System.out.println("Inserte ID de la Enfermera: ");
+				nuevoTratamiento.setIdEnfermera(sc.nextInt());
 
 				crud.insertTratamiento(nuevoTratamiento);
 				break;
@@ -330,7 +336,43 @@ public class App {
 				// CODIGO MAR
 				break;
 			case 5:
-				// CODIGO PEPE
+				crud.select("tratamiento");
+				System.out.println("Elige el ID del tratamiento a modificar: ");
+				int tratamientoID = sc.nextInt();
+
+				// Verificar si el ID del tratamiento existe en la base de datos
+				if (crud.selectId("tratamiento", tratamientoID) != null) {
+					System.out.println("Elige el campo a modificar: ");
+					System.out.println("1.- Diagnóstico\n" + "2.- Fecha de alta\n" + "3.- Fecha de baja\n"
+							+ "4.- Costo\n" + "5.- ID del Pokemon\n" + "6.- ID de la Enfermera\n");
+					int opcionTratamiento = sc.nextInt();
+
+					switch (opcionTratamiento) {
+					case 1:
+						crud.updateTratamiento(tratamientoID, "diagnostico");
+						break;
+					case 2:
+						crud.updateTratamiento(tratamientoID, "fechaAlta");
+						break;
+					case 3:
+						crud.updateTratamiento(tratamientoID, "fechaBaja");
+						break;
+					case 4:
+						crud.updateTratamiento(tratamientoID, "costo");
+						break;
+					case 5:
+						crud.updateTratamiento(tratamientoID, "idPokemon");
+						break;
+					case 6:
+						crud.updateTratamiento(tratamientoID, "idEnfermera");
+						break;
+					default:
+						System.out.println("Opción inválida. Saliendo...");
+						break;
+					}
+				} else {
+					System.out.println("Ese ID de tratamiento no existe");
+				}
 				break;
 
 			case 6:
@@ -385,7 +427,17 @@ public class App {
 				break;
 
 			case 5:
-				// crud.Delete("tratamiento",centroID);
+				crud.select("tratamiento");
+				System.out.println("Elige el ID del tratamiento a eliminar: ");
+				int tratamientoID = sc.nextInt();
+
+				// Verificar si el ID del tratamiento existe en la base de datos
+				if (crud.selectId("tratamiento", tratamientoID) != null) {
+					crud.deleteTratamiento(tratamientoID);
+					System.out.println("Tratamiento eliminado correctamente");
+				} else {
+					System.out.println("Ese ID de tratamiento no existe");
+				}
 				break;
 
 			case 6:

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -111,22 +112,25 @@ public class Crud implements CrudInterface {
 	public void insertTratamiento(Tratamiento nuevoTratamiento) {
 
 		try {
-			String insertQuery = "INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES (?, ?, ?, ?, ?, ?)";
-			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
-			// PEPE
-			// Set parameter values
-			/*
-			 * preparedStatement.setString(1, centroNuevo.getNombre());
-			 * preparedStatement.setString(2, centroNuevo.getLocalidad());
-			 * preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
-			 * preparedStatement.setInt(4, centroNuevo.getTrabajador());
-			 */
-			// Execute the prepared statement
-			int rowsInserted = preparedStatement.executeUpdate();
-			System.out.println(rowsInserted + " row(s) insertados.");
+			// Preparar la consulta SQL
+			String insertQueryTratamiento = "INSERT INTO tratamiento (idTratamiento, diagnostico, fechaAlta, fechaBaja, costo, idPokemon, idEnfermera) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement preparedStatementTratamiento = conn.prepareStatement(insertQueryTratamiento);
+
+			// Establecer los valores de los parámetros
+			preparedStatementTratamiento.setInt(1, nuevoTratamiento.getIdTratamiento());
+			preparedStatementTratamiento.setString(2, nuevoTratamiento.getDiagnostico());
+			preparedStatementTratamiento.setDate(3, java.sql.Date.valueOf(nuevoTratamiento.getFechaAlta()));
+			preparedStatementTratamiento.setDate(4, java.sql.Date.valueOf(nuevoTratamiento.getFechaBaja()));
+			preparedStatementTratamiento.setDouble(5, nuevoTratamiento.getCosto());
+			preparedStatementTratamiento.setInt(6, nuevoTratamiento.getIdPokemon());
+			preparedStatementTratamiento.setInt(7, nuevoTratamiento.getIdEnfermera());
+
+			// Ejecutar la consulta preparada
+			int rowsInserted = preparedStatementTratamiento.executeUpdate();
+			System.out.println(rowsInserted + " fila(s) insertada(s).");
 
 		} catch (SQLException e) {
-			System.out.println("Error al insertar");
+			System.out.println("Error al insertar el tratamiento");
 			// e.printStackTrace();
 		}
 	}
@@ -348,10 +352,33 @@ public class Crud implements CrudInterface {
 			// CODIGO Mar
 
 		case "tratamiento":
-			// CODIGO PEPE
+			Tratamiento tratamiento = null;
+			try {
+				// Preparar la consulta SQL
+				String sqlTratamiento = "SELECT * FROM tratamiento WHERE idTratamiento = ?";
+				PreparedStatement statementTratamiento = conn.prepareStatement(sqlTratamiento);
 
+				statementTratamiento.setInt(1, id);
+
+				// Ejecutar la consulta y obtener el resultado
+				ResultSet resultSetTratamiento = statementTratamiento.executeQuery();
+				if (resultSetTratamiento.next()) {
+					tratamiento = new Tratamiento();
+					tratamiento.setIdTratamiento(resultSetTratamiento.getInt("idTratamiento"));
+					tratamiento.setDiagnostico(resultSetTratamiento.getString("diagnostico"));
+					tratamiento.setFechaAlta(resultSetTratamiento.getDate("fechaAlta").toLocalDate());
+					tratamiento.setFechaBaja(resultSetTratamiento.getDate("fechaBaja").toLocalDate());
+					tratamiento.setCosto(resultSetTratamiento.getDouble("costo"));
+					tratamiento.setIdPokemon(resultSetTratamiento.getInt("idPokemon"));
+					tratamiento.setIdEnfermera(resultSetTratamiento.getInt("idEnfermera"));
+				}
+			} catch (SQLException e) {
+				System.out.println("No existe esa ID");
+			}
+			return tratamiento;
+			
 		default:
-			System.out.println("No existe tabla para ese objeto");
+			System.out.println("Tabla no válida");
 			return null;
 		}
 	}
@@ -465,8 +492,81 @@ public class Crud implements CrudInterface {
 		// MAR
 	}
 
-	public void updateTratamiento(Tratamiento tratamiento) {
-		// PEPE
+	public void updateTratamiento(int id, String campo) {
+		try {
+			switch (campo) {
+			case "diagnostico":
+				System.out.print("Ingrese el nuevo diagnóstico: ");
+				String nuevoDiagnostico = sc.next();
+				String updateQueryDiagnostico = "UPDATE tratamiento SET diagnostico=? WHERE idTratamiento=?";
+				PreparedStatement statementDiagnostico = conn.prepareStatement(updateQueryDiagnostico);
+				statementDiagnostico.setString(1, nuevoDiagnostico);
+				statementDiagnostico.setInt(2, id);
+				statementDiagnostico.executeUpdate();
+				break;
+
+			case "fechaAlta":
+				System.out.print("Ingrese la nueva fecha de alta (YYYY-MM-DD): ");
+				String nuevaFechaAlta = sc.next();
+				LocalDate fechaAlta = LocalDate.parse(nuevaFechaAlta);
+				String updateQueryFechaAlta = "UPDATE tratamiento SET fechaAlta=? WHERE idTratamiento=?";
+				PreparedStatement statementFechaAlta = conn.prepareStatement(updateQueryFechaAlta);
+				statementFechaAlta.setDate(1, java.sql.Date.valueOf(fechaAlta));
+				statementFechaAlta.setInt(2, id);
+				statementFechaAlta.executeUpdate();
+				break;
+
+			case "fechaBaja":
+				System.out.print("Ingrese la nueva fecha de baja (YYYY-MM-DD): ");
+				String nuevaFechaBaja = sc.next();
+				LocalDate fechaBaja = LocalDate.parse(nuevaFechaBaja);
+				String updateQueryFechaBaja = "UPDATE tratamiento SET fechaBaja=? WHERE idTratamiento=?";
+				PreparedStatement statementFechaBaja = conn.prepareStatement(updateQueryFechaBaja);
+				statementFechaBaja.setDate(1, java.sql.Date.valueOf(fechaBaja));
+				statementFechaBaja.setInt(2, id);
+				statementFechaBaja.executeUpdate();
+				break;
+
+			case "costo":
+				System.out.print("Ingrese el nuevo costo: ");
+				double nuevoCosto = sc.nextDouble();
+				String updateQueryCosto = "UPDATE tratamiento SET costo=? WHERE idTratamiento=?";
+				PreparedStatement statementCosto = conn.prepareStatement(updateQueryCosto);
+				statementCosto.setDouble(1, nuevoCosto);
+				statementCosto.setInt(2, id);
+				statementCosto.executeUpdate();
+				break;
+
+			case "idPokemon":
+				System.out.print("Ingrese el nuevo ID del Pokemon: ");
+				int nuevoIdPokemon = sc.nextInt();
+				String updateQueryIdPokemon = "UPDATE tratamiento SET idPokemon=? WHERE idTratamiento=?";
+				PreparedStatement statementIdPokemon = conn.prepareStatement(updateQueryIdPokemon);
+				statementIdPokemon.setInt(1, nuevoIdPokemon);
+				statementIdPokemon.setInt(2, id);
+				statementIdPokemon.executeUpdate();
+				break;
+
+			case "idEnfermera":
+				System.out.print("Ingrese el nuevo ID de la Enfermera: ");
+				int nuevoIdEnfermera = sc.nextInt();
+				String updateQueryIdEnfermera = "UPDATE tratamiento SET idEnfermera=? WHERE idTratamiento=?";
+				PreparedStatement statementIdEnfermera = conn.prepareStatement(updateQueryIdEnfermera);
+				statementIdEnfermera.setInt(1, nuevoIdEnfermera);
+				statementIdEnfermera.setInt(2, id);
+				statementIdEnfermera.executeUpdate();
+				break;
+
+			default:
+				System.out.println("Campo no válido.");
+				break;
+			}
+			System.out.println("Actualizado correctamente.");
+			System.out.println(selectId("tratamiento", id));
+		} catch (SQLException e) {
+			System.out.println("Error al modificar");
+			// e.printStackTrace();
+		}
 	}
 
 	public void deleteCentro(Centro centro) {
@@ -520,19 +620,23 @@ public class Crud implements CrudInterface {
 		}
 	}
 
+
+	public void deleteTratamiento(int id) {
+
 	public void deletePokemon(int id) {
 		// MAR
 	}
 
 	public void deleteTratamiento(Tratamiento tratamiento) {
-		// PEPE
+
 		try {
-			String deleteQuery = "DELETE FROM tratamiento WHERE id_tratamiento=?";
-			PreparedStatement preparedStatement = conn.prepareStatement(deleteQuery);
-			preparedStatement.setInt(1, tratamiento.getIdTratamiento());
-			preparedStatement.executeUpdate();
-			preparedStatement.close();
-			System.out.println("Tratamiento eliminado correctamente.");
+			String deleteQueryTratamiento = "DELETE FROM tratamiento WHERE idTratamiento=?";
+			PreparedStatement statementTratamiento = conn.prepareStatement(deleteQueryTratamiento);
+			statementTratamiento.setInt(1, id);
+			statementTratamiento.executeUpdate();
+
+			System.out.println("Tratamiento eliminado correctamente");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
