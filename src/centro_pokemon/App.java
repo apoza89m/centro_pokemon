@@ -247,8 +247,36 @@ public class App {
 			switch (selectMenu) {
 
 			case 1:
-				// CODIGO JESUS
-				break;
+				// CODIGO JESUS//
+		/*		
+				crud.select("centro");
+				System.out.println("Elige id a modificar: ");
+				int centroID = sc.nextInt();
+
+				if (crud.selectId("entrenador", entrenadorID) != null) {
+					System.out.println("Elige campo a modificar: ");
+					System.out.println("1.- nombre\n" + "2.- genero\n" + "3.- num_medallas\n" + "4.- saldo\n");
+					int opcionEntrenador = sc.nextInt();
+					switch (opcionEntrenador) {
+					case 1:
+						crud.updateEntrenador(entrenadorID, "nombre");
+						break;
+					case 2:
+						crud.updateEntrenador(entrenadorID, "genero");
+						break;
+					case 3:
+						crud.updateEntrenador(entrenadorID, "num_medallas");
+						break;
+					case 4:
+						crud.updateEntrenador(entrenadorID, "saldo");
+						break;
+					default:
+						System.out.println("Saliendo...");
+						break;
+					}
+				} else
+					System.out.println("Esa ID no existe");
+				break;*/ 
 			case 2:
 				crud.select("enfermera");
 				System.out.println("Elige id a modificar: ");

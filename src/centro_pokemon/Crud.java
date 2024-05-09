@@ -296,7 +296,42 @@ public class Crud {
 
 		switch (tabla) {
 		case "centro":
+			
+			
 			// CODIGO JESUS
+		case "centro":
+			try {
+				// Create a statement
+				Statement statement = conn.createStatement();
+				// Execute a query
+				String query = "SELECT * FROM centro";
+
+				CentroSet cs = statement.executeQuery(query);
+
+				// Process the results
+				while (cs.next()) {
+					int id = CentroSet.getInt("id_centro");
+					String nombre = CentroSet.getString("nombre");
+					String localidad = CentroSet.getDouble("localidad");
+					double prespuesto = CentroSet.getDouble("presupuesto");
+					String trabajador = CentroSet.getString("trabajador");
+
+					System.out.println("ID: " + id + ", Nombre: " + nombre + ", Localidad: " + localidad + ", presupuesto: " + presupuesto
+							+ ", trabajador: " + trabajador );
+				}
+				cs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "salir":
+			System.out.println("\nVolviendo al menu principal");
+			break;
+		default:
+			System.out.println("Tabla no reconocida");
+		}
+
+			
 		case "enfermera":
 			Enfermera enfermera = null;
 			try {
@@ -368,7 +403,7 @@ public class Crud {
 			System.out.println("No existe tabla para ese objeto");
 			return null;
 		}
-	}
+	
 
 	public void update() {
 		/*
@@ -381,8 +416,59 @@ public class Crud {
 
 	public void updateCentro(Centro centro) {
 		// JESUS
+		
+		 
+		 	public void updateCentro(int id, String campo) {
+		try {
+			switch (campo) {
 
+			case "nombre":
+				System.out.print("Ingrese el nuevo nombre: ");
+				String nuevoNombre = sc.next();
+				String updateQueryNombre = "UPDATE persona SET nombre=? WHERE id=?";
+				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
+				statementNombre.setString(1, nuevoNombre);
+				statementNombre.setInt(2, id);
+				statementNombre.executeUpdate();
+				break;
+
+			case "localidad":
+				System.out.print("Ingrese el nuevo genero(h/m): ");
+				String nuevoGenero = sc.next();
+				String updateQueryGenero = "UPDATE persona SET genero=? WHERE id=?";
+				PreparedStatement statementGenero = conn.prepareStatement(updateQueryGenero);
+				statementGenero.setString(1, nuevoGenero);
+				statementGenero.setInt(2, id);
+				statementGenero.executeUpdate();
+				break;
+
+			case "presupuesto":
+				System.out.print("Ingrese el nuevo numero de pokemon tratados: ");
+				int nuevoPresupuesto = sc.nextInt();
+				String updateQueryNum = "UPDATE enfermera SET num_pokemon_tratados=? WHERE id=?";
+				PreparedStatement statementPresupuesto = conn.prepareStatement(updateQueryNum);
+				statementPresupuesto.setInt(1, nuevoPresupuesto);
+				statementPresupuesto.setInt(2, id);
+				statementPresupuesto.executeUpdate();
+				break;
+
+			default:
+				System.out.println("Campo no valido.");
+				break;
+			}
+			System.out.println("Actualizado correctamente.");
+			System.out.println(selectId("enfermera", id));
+		} catch (SQLException e) {
+			System.out.println("Error al modificar");
+		}
 	}
+
+		
+		
+		
+		
+
+	
 
 	public void updateEnfermera(int id, String campo) {
 		try {
