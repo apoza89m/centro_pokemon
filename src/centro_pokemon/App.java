@@ -12,26 +12,35 @@ import java.util.Scanner;
 
 public class App {
 
+	static Scanner sc = new Scanner(System.in);
+
 	public static void menuPrincipal() {
 
 		System.out.println("-------- Bienvenido al centro Pokemon --------");
 
-		Scanner sc = new Scanner(System.in);
-
 		Crud crud = null;
 
 		int selectMenu = 0;
+
 		while (selectMenu != 8) {
-			System.out.println("\nMENU PRINCIPAL \n1.- Conectar a bbdd\n" + "2.- Configurar bbdd\n" + "3.- CREATE\n"
+			String opcion_1 = (crud == null) ? "Conectar a bbdd" : "Conectado";
+
+			System.out.println("\nMENU PRINCIPAL \n1.- " + opcion_1 + "\n" + "2.- Configurar bbdd\n" + "3.- CREATE\n"
 					+ "4.- READ\n" + "5.- UPDATE\n" + "6.- DELETE\n" + "7.- Curar pokemon\n" + "8.- Salir\n");
+
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
 			case 1:
-				crud = new Crud();
+				if (crud != null)
+					System.out.println("Ya estas conectado a la base de datos");
+				else
+					crud = new Crud();
 				break;
+
 			case 2:
 				Conn.configuraConn();
 				break;
+
 			case 3:
 				try {
 					menuInsert(crud);
@@ -39,6 +48,7 @@ public class App {
 					System.out.println("Conecta a la base de datos primero.");
 				}
 				break;
+
 			case 4:
 				try {
 					menuSelect(crud);
@@ -46,6 +56,7 @@ public class App {
 					System.out.println("Conecta a la base de datos primero.");
 				}
 				break;
+
 			case 5:
 				try {
 					menuUpdate(crud);
@@ -53,6 +64,7 @@ public class App {
 					System.out.println("Conecta a la base de datos primero.");
 				}
 				break;
+
 			case 6:
 				try {
 					menuDelete(crud);
@@ -60,18 +72,32 @@ public class App {
 					System.out.println("Conecta a la base de datos primero.");
 				}
 				break;
+
 			case 7:
 				try {
-					curarPokemon(crud);
+					System.out.println("Inserte id del centro");
+					int id_centro = sc.nextInt();
+
+					System.out.println("Inserte id de entrenador");
+					int id_entrenador = sc.nextInt();
+
+					crud.muestraPokemon(id_entrenador);
+					System.out.println("Inserte id de pokemon");
+					int id_pokemon = sc.nextInt();
+
+					crud.curarPokemon(id_centro, id_entrenador, id_pokemon);
+
 				} catch (Exception e) {
 					System.out.println("Conecta a la base de datos primero.");
 				}
 				break;
+
 			case 8:
 				System.out.println("¡Hasta luego Lucas!");
 				if (sc != null)
 					sc.close();
 				break;
+
 			default:
 				System.out.println("Numero no reconocido");
 				continue;
@@ -79,12 +105,7 @@ public class App {
 		}
 	}
 
-	public static void curarPokemon(Crud crud) {
-	}
-
 	public static void menuInsert(Crud crud) {
-
-		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
@@ -196,8 +217,6 @@ public class App {
 
 	public static void menuSelect(Crud crud) {
 
-		Scanner sc = crud.getSc();
-
 		int selectMenu = 0;
 		while (selectMenu != 6) {
 			System.out.println("\n-------- SELECT --------");
@@ -241,8 +260,6 @@ public class App {
 	}
 
 	public static void menuUpdate(Crud crud) {
-
-		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
@@ -295,15 +312,19 @@ public class App {
 					case 1:
 						crud.updateEntrenador(entrenadorID, "nombre");
 						break;
+
 					case 2:
 						crud.updateEntrenador(entrenadorID, "genero");
 						break;
+
 					case 3:
 						crud.updateEntrenador(entrenadorID, "num_medallas");
 						break;
+
 					case 4:
 						crud.updateEntrenador(entrenadorID, "saldo");
 						break;
+
 					default:
 						System.out.println("Saliendo...");
 						break;
@@ -367,8 +388,6 @@ public class App {
 	}
 
 	public static void menuDelete(Crud crud) {
-
-		Scanner sc = crud.getSc();
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
