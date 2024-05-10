@@ -275,7 +275,7 @@ public class Crud implements CrudInterface {
 
 		switch (tabla) {
 		case "centro":
-			// CODIGO JESUS
+			// JESUS
 		case "enfermera":
 			Enfermera enfermera = null;
 			try {
@@ -554,7 +554,10 @@ public class Crud implements CrudInterface {
 	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) {
 		System.out.println("DESARROLLAR");
 		
+		//Object centro = selectId("centro", id_centro);
 		Object entrenador = selectId("entrenador", id_entrenador);
+		//Object pokemon = selectId("pokemon", id_pokemon);
+		
 	}
 
 }
