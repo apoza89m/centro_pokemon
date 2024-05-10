@@ -29,7 +29,7 @@ public class App {
 
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
-			
+
 			case 1:
 				if (crud != null)
 					System.out.println("Ya estas conectado a la base de datos");
@@ -335,43 +335,43 @@ public class App {
 				break;
 			case 5:
 				crud.select("tratamiento");
-                System.out.println("Elige el ID del tratamiento a modificar: ");
-                int tratamientoID = sc.nextInt();
+				System.out.println("Elige el ID del tratamiento a modificar: ");
+				int tratamientoID = sc.nextInt();
 
-                // Verificar si el ID del tratamiento existe en la base de datos
-                if (crud.selectId("tratamiento", tratamientoID) != null) {
-                    System.out.println("Elige el campo a modificar: ");
-                    System.out.println("1.- Diagnóstico\n" + "2.- Fecha de alta\n" + "3.- Fecha de baja\n"
-                            + "4.- Costo\n" + "5.- ID del Pokemon\n" + "6.- ID de la Enfermera\n");
-                    int opcionTratamiento = sc.nextInt();
+				// Verificar si el ID del tratamiento existe en la base de datos
+				if (crud.selectId("tratamiento", tratamientoID) != null) {
+					System.out.println("Elige el campo a modificar: ");
+					System.out.println("1.- Diagnóstico\n" + "2.- Fecha de alta\n" + "3.- Fecha de baja\n"
+							+ "4.- Costo\n" + "5.- ID del Pokemon\n" + "6.- ID de la Enfermera\n");
+					int opcionTratamiento = sc.nextInt();
 
-                    switch (opcionTratamiento) {
-                    case 1:
-                        crud.updateTratamiento(tratamientoID, "id_tratamiento");
-                        break;
-                    case 2:
-                        crud.updateTratamiento(tratamientoID, "fecha_alta");
-                        break;
-                    case 3:
-                        crud.updateTratamiento(tratamientoID, "fecha_baja");
-                        break;
-                    case 4:
-                        crud.updateTratamiento(tratamientoID, "costo");
-                        break;
-                    case 5:
-                        crud.updateTratamiento(tratamientoID, "id_poke");
-                        break;
-                    case 6:
-                        crud.updateTratamiento(tratamientoID, "id_enfermera");
-                        break;
-                    default:
-                        System.out.println("Opción inválida. Saliendo...");
-                        break;
-                    }
-                } else {
-                    System.out.println("Ese ID de tratamiento no existe");
-                }
-                break;
+					switch (opcionTratamiento) {
+					case 1:
+						crud.updateTratamiento(tratamientoID, "id_tratamiento");
+						break;
+					case 2:
+						crud.updateTratamiento(tratamientoID, "fecha_alta");
+						break;
+					case 3:
+						crud.updateTratamiento(tratamientoID, "fecha_baja");
+						break;
+					case 4:
+						crud.updateTratamiento(tratamientoID, "costo");
+						break;
+					case 5:
+						crud.updateTratamiento(tratamientoID, "id_poke");
+						break;
+					case 6:
+						crud.updateTratamiento(tratamientoID, "id_enfermera");
+						break;
+					default:
+						System.out.println("Opción inválida. Saliendo...");
+						break;
+					}
+				} else {
+					System.out.println("Ese ID de tratamiento no existe");
+				}
+				break;
 
 			case 6:
 				System.out.println("Volviendo al menu principal...");
@@ -425,17 +425,17 @@ public class App {
 				break;
 
 			case 5:
-                crud.select("tratamiento");
-                System.out.println("Elige el ID del tratamiento a eliminar: ");
-                int tratamientoID = sc.nextInt();
+				crud.select("tratamiento");
+				System.out.println("Elige el ID del tratamiento a eliminar: ");
+				int tratamientoID = sc.nextInt();
 
-                // Verificar si el ID del tratamiento existe en la base de datos
-                if (crud.selectId("tratamiento", tratamientoID) != null) {
-                    crud.deleteTratamiento(tratamientoID);
-                } else {
-                    System.out.println("Ese ID de tratamiento no existe");
-                }
-                break;
+				// Verificar si el ID del tratamiento existe en la base de datos
+				if (crud.selectId("tratamiento", tratamientoID) != null) {
+					crud.deleteTratamiento(tratamientoID);
+				} else {
+					System.out.println("Ese ID de tratamiento no existe");
+				}
+				break;
 
 			case 6:
 				System.out.println("Volviendo al menu principal...");
@@ -449,11 +449,10 @@ public class App {
 	}
 
 	public static void main(String[] args) {
-		
-		
-		//Crud crud = new Crud();
-		//System.out.println(crud.selectId("tratamiento", 1));;
-		
+
+		// Crud crud = new Crud();
+		// System.out.println(crud.selectId("tratamiento", 1));;
+
 		menuPrincipal();
 
 	}

@@ -17,7 +17,8 @@ public class Enfermera extends Persona {
 
 	@Override
 	public String toString() {
-		return "Enfermera [id = " + getId() + ", nombre = " + getNombre() + ", genero = " + getGenero() + ", Numero de pokemon tratados = " + numPokemonTratados + "]";
+		return "Enfermera [id = " + getId() + ", nombre = " + getNombre() + ", genero = " + getGenero()
+				+ ", Numero de pokemon tratados = " + numPokemonTratados + "]";
 	}
 
 }

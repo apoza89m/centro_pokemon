@@ -614,18 +614,18 @@ public class Crud implements CrudInterface {
 	}
 
 	public void deleteTratamiento(int id) {
-        try {
-            String deleteQueryTratamiento = "DELETE FROM tratamiento WHERE id_tratamiento=?";
-            PreparedStatement statementTratamiento = conn.prepareStatement(deleteQueryTratamiento);
-            statementTratamiento.setInt(1, id);
-            statementTratamiento.executeUpdate();
+		try {
+			String deleteQueryTratamiento = "DELETE FROM tratamiento WHERE id_tratamiento=?";
+			PreparedStatement statementTratamiento = conn.prepareStatement(deleteQueryTratamiento);
+			statementTratamiento.setInt(1, id);
+			statementTratamiento.executeUpdate();
 
-            System.out.println("Tratamiento eliminado correctamente");
+			System.out.println("Tratamiento eliminado correctamente");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void muestraPokemon(int id_entrenador) {
 		try {
