@@ -29,6 +29,7 @@ public class App {
 
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
+			
 			case 1:
 				if (crud != null)
 					System.out.println("Ya estas conectado a la base de datos");
@@ -37,7 +38,10 @@ public class App {
 				break;
 
 			case 2:
-				Conn.configuraConn();
+				if (crud != null)
+					System.out.println("Ya estas conectado a la base de datos");
+				else
+					Conn.configuraConn();
 				break;
 
 			case 3:

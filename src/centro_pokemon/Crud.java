@@ -41,7 +41,6 @@ public class Crud implements CrudInterface {
 
 		} catch (SQLException e) {
 			System.out.println("Error al insertar");
-			// e.printStackTrace();
 		}
 	}
 
@@ -70,7 +69,6 @@ public class Crud implements CrudInterface {
 
 		} catch (SQLException e) {
 			System.out.println("Error al insertar");
-			// e.printStackTrace();
 		}
 	}
 
@@ -100,7 +98,6 @@ public class Crud implements CrudInterface {
 
 		} catch (SQLException e) {
 			System.out.println("Error al insertar");
-			// e.printStackTrace();
 		}
 	}
 
@@ -166,7 +163,6 @@ public class Crud implements CrudInterface {
 				}
 			} catch (SQLException e) {
 				System.out.println("Error al leer");
-				// e.printStackTrace();
 			}
 
 			break;
@@ -190,7 +186,6 @@ public class Crud implements CrudInterface {
 				}
 			} catch (SQLException e) {
 				System.out.println("Error al leer");
-				// e.printStackTrace();
 			}
 			break;
 		case "entrenador":
@@ -215,7 +210,6 @@ public class Crud implements CrudInterface {
 				}
 			} catch (SQLException e) {
 				System.out.println("Error al leer");
-				// e.printStackTrace();
 			}
 			break;
 		case "pokemon":
@@ -243,7 +237,6 @@ public class Crud implements CrudInterface {
 				}
 			} catch (SQLException e) {
 				System.out.println("Error al leer la tabla");
-				// e.printStackTrace();
 			}
 			break;
 		case "tratamiento":
@@ -560,6 +553,8 @@ public class Crud implements CrudInterface {
 
 	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) {
 		System.out.println("DESARROLLAR");
+		
+		Object entrenador = selectId("entrenador", id_entrenador);
 	}
 
 }
