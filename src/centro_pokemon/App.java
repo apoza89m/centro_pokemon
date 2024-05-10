@@ -96,7 +96,7 @@ public class App {
 				break;
 
 			case 8:
-				System.out.println("¡Hasta luego Lucas!");
+				System.out.println("Saliendo...");
 				if (sc != null)
 					sc.close();
 				break;
