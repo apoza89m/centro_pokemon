@@ -1,6 +1,6 @@
 package centro_pokemon;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Tratamiento {
 	/**
@@ -8,13 +8,41 @@ public class Tratamiento {
 	 */
 	private int idTratamiento;
 	private String diagnostico;
-	private LocalDate fechaAlta;
-	private LocalDate fechaBaja;
+	private Date fechaAlta;
+	private Date fechaBaja;
 	private double costo;
 	private int idPokemon;
 	private int idEnfermera;
 
 	public Tratamiento() {
+	}
+
+	public void setIdTratamiento(int idTratamiento) {
+		this.idTratamiento = idTratamiento;
+	}
+
+	public void setDiagnostico(String diagnostico) {
+		this.diagnostico = diagnostico;
+	}
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
+
+	public void setIdPokemon(int idPokemon) {
+		this.idPokemon = idPokemon;
+	}
+
+	public void setIdEnfermera(int idEnfermera) {
+		this.idEnfermera = idEnfermera;
 	}
 
 	public int getIdTratamiento() {
@@ -25,11 +53,11 @@ public class Tratamiento {
 		return diagnostico;
 	}
 
-	public LocalDate getFechaAlta() {
+	public Date getFechaAlta() {
 		return fechaAlta;
 	}
 
-	public LocalDate getFechaBaja() {
+	public Date getFechaBaja() {
 		return fechaBaja;
 	}
 
@@ -44,4 +72,12 @@ public class Tratamiento {
 	public int getIdEnfermera() {
 		return idEnfermera;
 	}
+
+	@Override
+	public String toString() {
+		return "Tratamiento [idTratamiento=" + idTratamiento + ", diagnostico=" + diagnostico + ", fechaAlta="
+				+ fechaAlta + ", fechaBaja=" + fechaBaja + ", costo=" + costo + ", idPokemon=" + idPokemon
+				+ ", idEnfermera=" + idEnfermera + "]";
+	}
+
 }

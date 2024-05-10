@@ -341,7 +341,30 @@ public class Crud implements CrudInterface {
 			// CODIGO Mar
 
 		case "tratamiento":
-			// CODIGO PEPE
+			Tratamiento tratamiento = null;
+			try {
+				// Preparar la consulta SQL
+				String sqlTratamiento = "SELECT * FROM tratamiento WHERE id_Tratamiento = ?";
+				PreparedStatement statementTratamiento = conn.prepareStatement(sqlTratamiento);
+
+				statementTratamiento.setInt(1, id);
+
+				// Ejecutar la consulta y obtener el resultado
+				ResultSet resultSetTratamiento = statementTratamiento.executeQuery();
+				if (resultSetTratamiento.next()) {
+					tratamiento = new Tratamiento();
+					tratamiento.setIdTratamiento(resultSetTratamiento.getInt("id_Tratamiento"));
+					tratamiento.setDiagnostico(resultSetTratamiento.getString("diagnostico"));
+					tratamiento.setFechaAlta(resultSetTratamiento.getDate("fecha_alta"));
+					tratamiento.setFechaBaja(resultSetTratamiento.getDate("fecha_baja"));
+					tratamiento.setCosto(resultSetTratamiento.getDouble("costo"));
+					tratamiento.setIdPokemon(resultSetTratamiento.getInt("id_poke"));
+					tratamiento.setIdEnfermera(resultSetTratamiento.getInt("id_enfermera"));
+				}
+			} catch (SQLException e) {
+				System.out.println("No existe esa ID");
+			}
+			return tratamiento;
 
 		default:
 			System.out.println("No existe tabla para ese objeto");
@@ -454,12 +477,85 @@ public class Crud implements CrudInterface {
 		}
 	}
 
-	public void updatePokemon(Tratamiento tratamiento) {
+	public void updatePokemon() {
 		// MAR
 	}
 
-	public void updateTratamiento(Tratamiento tratamiento) {
-		// PEPE
+	public void updateTratamiento(int id, String campo) {
+		try {
+			switch (campo) {
+			case "id_tratamiento":
+				System.out.print("Ingrese el nuevo diagnóstico: ");
+				String nuevoDiagnostico = sc.next();
+				String updateQueryDiagnostico = "UPDATE tratamiento SET diagnostico=? WHERE id_tratamiento=?";
+				PreparedStatement statementDiagnostico = conn.prepareStatement(updateQueryDiagnostico);
+				statementDiagnostico.setString(1, nuevoDiagnostico);
+				statementDiagnostico.setInt(2, id);
+				statementDiagnostico.executeUpdate();
+				break;
+
+			case "fecha_alta":
+				System.out.print("Ingrese la nueva fecha de alta (YYYY-MM-DD): ");
+				String nuevaFechaAlta = sc.next();
+				java.sql.Date fechaAlta = java.sql.Date.valueOf(nuevaFechaAlta);
+				String updateQueryFechaAlta = "UPDATE tratamiento SET fecha_alta=? WHERE id_tratamiento=?";
+				PreparedStatement statementFechaAlta = conn.prepareStatement(updateQueryFechaAlta);
+				statementFechaAlta.setDate(1, fechaAlta);
+				statementFechaAlta.setInt(2, id);
+				statementFechaAlta.executeUpdate();
+				break;
+
+			case "fecha_baja":
+				System.out.print("Ingrese la nueva fecha de baja (YYYY-MM-DD): ");
+				String nuevaFechaBaja = sc.next();
+				java.sql.Date fechaBaja = java.sql.Date.valueOf(nuevaFechaBaja);
+				String updateQueryFechaBaja = "UPDATE tratamiento SET fecha_baja=? WHERE id_tratamiento=?";
+				PreparedStatement statementFechaBaja = conn.prepareStatement(updateQueryFechaBaja);
+				statementFechaBaja.setDate(1, fechaBaja);
+				statementFechaBaja.setInt(2, id);
+				statementFechaBaja.executeUpdate();
+				break;
+
+			case "costo":
+				System.out.print("Ingrese el nuevo costo: ");
+				double nuevoCosto = sc.nextDouble();
+				String updateQueryCosto = "UPDATE tratamiento SET costo=? WHERE id_tratamiento=?";
+				PreparedStatement statementCosto = conn.prepareStatement(updateQueryCosto);
+				statementCosto.setDouble(1, nuevoCosto);
+				statementCosto.setInt(2, id);
+				statementCosto.executeUpdate();
+				break;
+
+			case "id_poke":
+				System.out.print("Ingrese el nuevo ID del Pokemon: ");
+				int nuevoIdPokemon = sc.nextInt();
+				String updateQueryIdPokemon = "UPDATE tratamiento SET id_poke=? WHERE id_tratamiento=?";
+				PreparedStatement statementIdPokemon = conn.prepareStatement(updateQueryIdPokemon);
+				statementIdPokemon.setInt(1, nuevoIdPokemon);
+				statementIdPokemon.setInt(2, id);
+				statementIdPokemon.executeUpdate();
+				break;
+
+			case "id_enfermera":
+				System.out.print("Ingrese el nuevo ID de la Enfermera: ");
+				int nuevoIdEnfermera = sc.nextInt();
+				String updateQueryIdEnfermera = "UPDATE tratamiento SET id_enfermera=? WHERE id_tratamiento=?";
+				PreparedStatement statementIdEnfermera = conn.prepareStatement(updateQueryIdEnfermera);
+				statementIdEnfermera.setInt(1, nuevoIdEnfermera);
+				statementIdEnfermera.setInt(2, id);
+				statementIdEnfermera.executeUpdate();
+				break;
+
+			default:
+				System.out.println("Campo no válido.");
+				break;
+			}
+			System.out.println("Actualizado correctamente.");
+			System.out.println(selectId("tratamiento", id));
+		} catch (SQLException e) {
+			System.out.println("Error al modificar");
+			// e.printStackTrace();
+		}
 	}
 
 	public void deleteCentro(Centro centro) {
@@ -517,19 +613,19 @@ public class Crud implements CrudInterface {
 		// MAR
 	}
 
-	public void deleteTratamiento(Tratamiento tratamiento) {
-		// PEPE
-		try {
-			String deleteQuery = "DELETE FROM tratamiento WHERE id_tratamiento=?";
-			PreparedStatement preparedStatement = conn.prepareStatement(deleteQuery);
-			preparedStatement.setInt(1, tratamiento.getIdTratamiento());
-			preparedStatement.executeUpdate();
-			preparedStatement.close();
-			System.out.println("Tratamiento eliminado correctamente.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	public void deleteTratamiento(int id) {
+        try {
+            String deleteQueryTratamiento = "DELETE FROM tratamiento WHERE id_tratamiento=?";
+            PreparedStatement statementTratamiento = conn.prepareStatement(deleteQueryTratamiento);
+            statementTratamiento.setInt(1, id);
+            statementTratamiento.executeUpdate();
+
+            System.out.println("Tratamiento eliminado correctamente");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 	public void muestraPokemon(int id_entrenador) {
 		try {
@@ -553,11 +649,11 @@ public class Crud implements CrudInterface {
 
 	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) {
 		System.out.println("DESARROLLAR");
-		
-		//Object centro = selectId("centro", id_centro);
+
+		// Object centro = selectId("centro", id_centro);
 		Object entrenador = selectId("entrenador", id_entrenador);
-		//Object pokemon = selectId("pokemon", id_pokemon);
-		
+		// Object pokemon = selectId("pokemon", id_pokemon);
+
 	}
 
 }

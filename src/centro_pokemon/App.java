@@ -334,8 +334,44 @@ public class App {
 				// CODIGO MAR
 				break;
 			case 5:
-				// CODIGO PEPE
-				break;
+				crud.select("tratamiento");
+                System.out.println("Elige el ID del tratamiento a modificar: ");
+                int tratamientoID = sc.nextInt();
+
+                // Verificar si el ID del tratamiento existe en la base de datos
+                if (crud.selectId("tratamiento", tratamientoID) != null) {
+                    System.out.println("Elige el campo a modificar: ");
+                    System.out.println("1.- Diagnóstico\n" + "2.- Fecha de alta\n" + "3.- Fecha de baja\n"
+                            + "4.- Costo\n" + "5.- ID del Pokemon\n" + "6.- ID de la Enfermera\n");
+                    int opcionTratamiento = sc.nextInt();
+
+                    switch (opcionTratamiento) {
+                    case 1:
+                        crud.updateTratamiento(tratamientoID, "id_tratamiento");
+                        break;
+                    case 2:
+                        crud.updateTratamiento(tratamientoID, "fecha_alta");
+                        break;
+                    case 3:
+                        crud.updateTratamiento(tratamientoID, "fecha_baja");
+                        break;
+                    case 4:
+                        crud.updateTratamiento(tratamientoID, "costo");
+                        break;
+                    case 5:
+                        crud.updateTratamiento(tratamientoID, "id_poke");
+                        break;
+                    case 6:
+                        crud.updateTratamiento(tratamientoID, "id_enfermera");
+                        break;
+                    default:
+                        System.out.println("Opción inválida. Saliendo...");
+                        break;
+                    }
+                } else {
+                    System.out.println("Ese ID de tratamiento no existe");
+                }
+                break;
 
 			case 6:
 				System.out.println("Volviendo al menu principal...");
@@ -389,8 +425,17 @@ public class App {
 				break;
 
 			case 5:
-				// crud.Delete("tratamiento",centroID);
-				break;
+                crud.select("tratamiento");
+                System.out.println("Elige el ID del tratamiento a eliminar: ");
+                int tratamientoID = sc.nextInt();
+
+                // Verificar si el ID del tratamiento existe en la base de datos
+                if (crud.selectId("tratamiento", tratamientoID) != null) {
+                    crud.deleteTratamiento(tratamientoID);
+                } else {
+                    System.out.println("Ese ID de tratamiento no existe");
+                }
+                break;
 
 			case 6:
 				System.out.println("Volviendo al menu principal...");
@@ -404,7 +449,11 @@ public class App {
 	}
 
 	public static void main(String[] args) {
-
+		
+		
+		//Crud crud = new Crud();
+		//System.out.println(crud.selectId("tratamiento", 1));;
+		
 		menuPrincipal();
 
 	}
