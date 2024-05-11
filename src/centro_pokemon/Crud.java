@@ -31,11 +31,13 @@ public class Crud implements CrudInterface {
 			// Prepare the SQL statement
 			String insertQuery = "INSERT INTO centro (nombre, localidad, presupuesto, trabajador) VALUES (?, ?, ?, ?)";
 			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
+
 			// Set parameter values
 			preparedStatement.setString(1, nuevoCentro.getNombre());
 			preparedStatement.setString(2, nuevoCentro.getLocalidad());
 			preparedStatement.setDouble(3, nuevoCentro.getPresupuesto());
 			preparedStatement.setInt(4, nuevoCentro.getTrabajador());
+
 			// Execute the prepared statement
 			int rowsInserted = preparedStatement.executeUpdate();
 			System.out.println(rowsInserted + " row(s) insertados.");
@@ -52,21 +54,24 @@ public class Crud implements CrudInterface {
 			String insertQueryPersona = "INSERT INTO persona (id, nombre, genero) VALUES (?, ?, ?)";
 			String insertQueryEnfermera = "INSERT INTO enfermera (id, num_pokemon_tratados) VALUES (?, ?)";
 			PreparedStatement preparedStatementPersona = conn.prepareStatement(insertQueryPersona);
+
 			// Set parameter values
 			preparedStatementPersona.setInt(1, nuevaEnfermera.getId());
 			preparedStatementPersona.setString(2, nuevaEnfermera.getNombre());
 			preparedStatementPersona.setString(3, nuevaEnfermera.getGenero());
+
 			// Execute the prepared statement
 			int rowsInserted1 = preparedStatementPersona.executeUpdate();
-			System.out.println(rowsInserted1 + " row(s) insertados.");
-
+			System.out.println(rowsInserted1 + " row(s) insertados en persona.");
 			PreparedStatement preparedStatementEnfermera = conn.prepareStatement(insertQueryEnfermera);
+
 			// Set parameter values
 			preparedStatementEnfermera.setInt(1, nuevaEnfermera.getId());
 			preparedStatementEnfermera.setInt(2, nuevaEnfermera.getNumPokemonTratados());
+
 			// Execute the prepared statement
 			int rowsInserted2 = preparedStatementEnfermera.executeUpdate();
-			System.out.println(rowsInserted2 + " row(s) insertados.");
+			System.out.println(rowsInserted2 + " row(s) insertados en enfermera.");
 
 		} catch (SQLException e) {
 			System.out.println("Error al insertar");
@@ -80,22 +85,25 @@ public class Crud implements CrudInterface {
 			String insertQueryPersona = "INSERT INTO persona (id, nombre, genero) VALUES (?, ?, ?)";
 			String insertQueryEntrenador = "INSERT INTO entrenador (id, num_medallas, saldo) VALUES (?, ?, ?)";
 			PreparedStatement preparedStatementPersona = conn.prepareStatement(insertQueryPersona);
+
 			// Set parameter values
 			preparedStatementPersona.setInt(1, nuevoEntrenador.getId());
 			preparedStatementPersona.setString(2, nuevoEntrenador.getNombre());
 			preparedStatementPersona.setString(3, nuevoEntrenador.getGenero());
+
 			// Execute the prepared statement
 			int rowsInserted1 = preparedStatementPersona.executeUpdate();
-			System.out.println(rowsInserted1 + " row(s) insertados.");
-
+			System.out.println(rowsInserted1 + " row(s) insertados en persona.");
 			PreparedStatement preparedStatementEntrenador = conn.prepareStatement(insertQueryEntrenador);
+
 			// Set parameter values
 			preparedStatementEntrenador.setInt(1, nuevoEntrenador.getId());
 			preparedStatementEntrenador.setInt(2, nuevoEntrenador.getNumMedallas());
 			preparedStatementEntrenador.setDouble(3, nuevoEntrenador.getSaldo());
+
 			// Execute the prepared statement
 			int rowsInserted2 = preparedStatementEntrenador.executeUpdate();
-			System.out.println(rowsInserted2 + " row(s) insertados.");
+			System.out.println(rowsInserted2 + " row(s) insertados en entrenador.");
 
 		} catch (SQLException e) {
 			System.out.println("Error al insertar");
@@ -111,21 +119,21 @@ public class Crud implements CrudInterface {
 		try {
 			String insertQuery = "INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera) VALUES (?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStatement = conn.prepareStatement(insertQuery);
-			// PEPE
+
 			// Set parameter values
-			/*
-			 * preparedStatement.setString(1, centroNuevo.getNombre());
-			 * preparedStatement.setString(2, centroNuevo.getLocalidad());
-			 * preparedStatement.setDouble(3, centroNuevo.getPresupuesto());
-			 * preparedStatement.setInt(4, centroNuevo.getTrabajador());
-			 */
+			preparedStatement.setString(1, nuevoTratamiento.getDiagnostico());
+			preparedStatement.setDate(2, nuevoTratamiento.getFechaAlta());
+			preparedStatement.setDate(3, nuevoTratamiento.getFechaBaja());
+			preparedStatement.setDouble(4, nuevoTratamiento.getCosto());
+			preparedStatement.setInt(5, nuevoTratamiento.getIdPokemon());
+			preparedStatement.setInt(6, nuevoTratamiento.getIdEnfermera());
+
 			// Execute the prepared statement
 			int rowsInserted = preparedStatement.executeUpdate();
 			System.out.println(rowsInserted + " row(s) insertados.");
 
 		} catch (SQLException e) {
 			System.out.println("Error al insertar");
-			// e.printStackTrace();
 		}
 	}
 
@@ -397,9 +405,60 @@ public class Crud implements CrudInterface {
 		}
 	}
 
-	public void updateCentro(Centro centro) {
-		// JESUS
+	public void updateCentro(int id, String campo) {
+		try {
+			switch (campo) {
 
+			case "nombre":
+
+				System.out.print("Ingrese el nuevo nombre de centro: ");
+				String nuevoNombre = sc.next();
+				String updateQueryNombre = "UPDATE centro SET nombre=? WHERE id=?";
+				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
+				statementNombre.setString(1, nuevoNombre);
+				statementNombre.setInt(2, id);
+				statementNombre.executeUpdate();
+				break;
+
+			case "localidad":
+
+				System.out.print("Ingrese la nueva localidad: ");
+				String nuevoLocalidad = sc.next();
+				String updateQueryLocalidad = "UPDATE centro SET localidad=? WHERE id=?";
+				PreparedStatement statementLocalidad = conn.prepareStatement(updateQueryLocalidad);
+				statementLocalidad.setString(1, nuevoLocalidad);
+				statementLocalidad.setInt(2, id);
+				statementLocalidad.executeUpdate();
+				break;
+
+			case "presupuesto":
+				System.out.print("Ingrese el nuevo presupuesto: ");
+				double nuevoPresupuesto = sc.nextDouble();
+				String updateQueryPresupuesto = "UPDATE centro SET presupuesto=? WHERE id=?";
+				PreparedStatement statementPresupuesto = conn.prepareStatement(updateQueryPresupuesto);
+				statementPresupuesto.setDouble(1, nuevoPresupuesto);
+				statementPresupuesto.setInt(2, id);
+				statementPresupuesto.executeUpdate();
+				break;
+
+			case "trabajador":
+				System.out.print("Ingrese el nuevo ID del trabajador: ");
+				int nuevoIdTrabajador = sc.nextInt();
+				String updateQueryIdTrabajador = "UPDATE centro SET trabajador=? WHERE id=?";
+				PreparedStatement statementIdTrabajador = conn.prepareStatement(updateQueryIdTrabajador);
+				statementIdTrabajador.setInt(1, nuevoIdTrabajador);
+				statementIdTrabajador.setInt(2, id);
+				statementIdTrabajador.executeUpdate();
+				break;
+			default:
+				System.out.println("Campo no valido.");
+				break;
+			}
+			System.out.println("Actualizado correctamente.");
+			System.out.println(selectId("centro", id));
+		} catch (SQLException e) {
+			System.out.println("Error al modificar");
+		}
 	}
 
 	public void updateEnfermera(int id, String campo) {
@@ -452,6 +511,7 @@ public class Crud implements CrudInterface {
 			switch (campo) {
 
 			case "nombre":
+
 				System.out.print("Ingrese el nuevo nombre: ");
 				String nuevoNombre = sc.next();
 				String updateQueryNombre = "UPDATE persona SET nombre=? WHERE id=?";
@@ -510,6 +570,7 @@ public class Crud implements CrudInterface {
 		try {
 			switch (campo) {
 			case "id_tratamiento":
+
 				System.out.print("Ingrese el nuevo diagnóstico: ");
 				String nuevoDiagnostico = sc.next();
 				String updateQueryDiagnostico = "UPDATE tratamiento SET diagnostico=? WHERE id_tratamiento=?";
@@ -583,8 +644,28 @@ public class Crud implements CrudInterface {
 		}
 	}
 
-	public void deleteCentro(Centro centro) {
-		// JESUS
+	public void deleteCentro(int id) {
+
+		try {
+			Object centro = selectId("centro", id);
+			int idEnfermera = ((Centro) centro).getTrabajador();
+
+			String updateQueryEnfermera = "UPDATE tratamiento SET id_enfermera = NULL WHERE id_enfermera = ?";
+			String deleteQueryCentro = "DELETE FROM centro WHERE id=?";
+
+			PreparedStatement statementTratamiento = conn.prepareStatement(updateQueryEnfermera);
+			statementTratamiento.setInt(1, idEnfermera);
+			statementTratamiento.executeUpdate();
+
+			PreparedStatement statementCentro = conn.prepareStatement(deleteQueryCentro);
+			statementCentro.setInt(1, id);
+			statementCentro.executeUpdate();
+
+			System.out.println("Centro eliminado correctamente");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void deleteEnfermera(int id) {
@@ -675,8 +756,8 @@ public class Crud implements CrudInterface {
 	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) {
 		System.out.println("DESARROLLAR");
 
-		// Object centro = selectId("centro", id_centro);
-		//HECHO Object entrenador = selectId("entrenador", id_entrenador);
+		// HECHO Object centro = selectId("centro", id_centro);
+		// HECHO Object entrenador = selectId("entrenador", id_entrenador);
 		// Object pokemon = selectId("pokemon", id_pokemon);
 
 	}

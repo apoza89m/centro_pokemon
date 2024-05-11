@@ -15,8 +15,10 @@ public interface CrudInterface {
 	public void select(String... tablaOpcional);
 
 	public Object selectId(String tabla, int id);
+	// Falta select en tabla pokemon
 
-	// public void updateCentro(Centro centro);
+	public void updateCentro(int id, String campo);
+
 	public void updateEnfermera(int id, String campo);
 
 	public void updateEntrenador(int id, String campo);
@@ -24,7 +26,8 @@ public interface CrudInterface {
 	// public void updatePokemon(Tratamiento tratamiento);
 	public void updateTratamiento(int id, String campo);
 
-	// public void deleteCentro(Centro centro);
+	public void deleteCentro(int id);
+
 	public void deleteEnfermera(int id);
 
 	public void deleteEntrenador(int id);

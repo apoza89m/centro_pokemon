@@ -1,5 +1,6 @@
 package centro_pokemon;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 /**
@@ -181,23 +182,25 @@ public class App {
 
 			case 5:
 				Tratamiento nuevoTratamiento = new Tratamiento();
-				// PEPE
-				/*
-				 * System.out.println("Inserte nombre del centro"); String nuevoNombre =
-				 * sc.next(); nuevoCentro.setNombre(nuevoNombre);
-				 * 
-				 * System.out.println("Inserte localidad"); String nuevaLocalidad = sc.next();
-				 * nuevoCentro.setLocalidad(nuevaLocalidad);
-				 * 
-				 * System.out.println("Inserte presupuesto"); Double nuevoPresupuesto =
-				 * sc.nextDouble() ; nuevoCentro.setPresupuesto(nuevoPresupuesto);
-				 * 
-				 * System.out.println("Introduce ID de trabajador"); int nuevoTrabajador =
-				 * sc.nextInt() ;
-				 * 
-				 * nuevoCentro.setTrabajador(nuevoTrabajador);
-				 */
 
+				System.out.println("Inserte nombre de diagnostico");
+				nuevoTratamiento.setDiagnostico(sc.next());
+
+				System.out.println("Inserte fecha de alta (YYYY-MM-DD) ");
+				nuevoTratamiento.setFechaAlta(Date.valueOf(sc.next()));
+
+				System.out.println("Inserte fecha de baja (YYYY-MM-DD)");
+				nuevoTratamiento.setFechaBaja(Date.valueOf(sc.next()));
+
+				System.out.println("Inserte costo");
+				nuevoTratamiento.setCosto(sc.nextDouble());
+
+				System.out.println("Inserte id de pokemon a tratar");
+				nuevoTratamiento.setIdPokemon(sc.nextInt());
+
+				System.out.println("Inserte id de enfermera responsable");
+				nuevoTratamiento.setIdEnfermera(sc.nextInt());
+				sc.next();
 				crud.insertTratamiento(nuevoTratamiento);
 				break;
 
@@ -268,8 +271,36 @@ public class App {
 			switch (selectMenu) {
 
 			case 1:
-				// CODIGO JESUS
+				crud.select("centro");
+				System.out.println("Elige id a modificar: ");
+				int centroID = sc.nextInt();
+
+				if (crud.selectId("centro", centroID) != null) {
+					System.out.println("Elige campo a modificar: ");
+					System.out.println("1.- nombre\n" + "2.- localidad\n" + "3.- presupuesto\n" + "4.- trabajador\n");
+					int opcionCentro = sc.nextInt();
+
+					switch (opcionCentro) {
+					case 1:
+						crud.updateCentro(centroID, "nombre");
+						break;
+					case 2:
+						crud.updateCentro(centroID, "localidad");
+						break;
+					case 3:
+						crud.updateCentro(centroID, "presupuesto");
+						break;
+					case 4:
+						crud.updateCentro(centroID, "trabajador");
+						break;
+					default:
+						System.out.println("Saliendo...");
+						break;
+					}
+				} else
+					System.out.println("Esa ID no existe");
 				break;
+
 			case 2:
 				crud.select("enfermera");
 				System.out.println("Elige id a modificar: ");
@@ -395,7 +426,14 @@ public class App {
 			selectMenu = sc.nextInt();
 			switch (selectMenu) {
 			case 1:
-				// crud.Delete("centro",centroID);
+				crud.select("centro");
+				System.out.println("Elige id a eliminar: ");
+				int centroID = sc.nextInt();
+
+				if (crud.selectId("centro", centroID) != null)
+					crud.deleteCentro(centroID);
+				else
+					System.out.println("Esa ID no existe");
 				break;
 
 			case 2:
