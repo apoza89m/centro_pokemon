@@ -1,6 +1,7 @@
 package centro_pokemon;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -275,7 +276,31 @@ public class Crud implements CrudInterface {
 
 		switch (tabla) {
 		case "centro":
-			// JESUS
+			Centro centro = null;
+			try {
+				// Execute a query
+				String query = "SELECT * FROM centro WHERE id = ?";
+
+				PreparedStatement statementCentro = conn.prepareStatement(query);
+
+				statementCentro.setInt(1, id);
+
+				// Ejecutar la consulta y obtener el resultado
+				ResultSet resultSetPersona = statementCentro.executeQuery();
+				if (resultSetPersona.next()) {
+					centro = new Centro();
+					centro.setId(id);
+					centro.setNombre(resultSetPersona.getString("nombre"));
+					centro.setLocalidad(resultSetPersona.getString("localidad"));
+					centro.setPresupuesto(resultSetPersona.getDouble("presupuesto"));
+					centro.setTrabajador(resultSetPersona.getInt("trabajador"));
+				}
+
+			} catch (SQLException e) {
+				System.out.println("No existe esa ID");
+			}
+			return centro;
+		
 		case "enfermera":
 			Enfermera enfermera = null;
 			try {
@@ -497,7 +522,7 @@ public class Crud implements CrudInterface {
 			case "fecha_alta":
 				System.out.print("Ingrese la nueva fecha de alta (YYYY-MM-DD): ");
 				String nuevaFechaAlta = sc.next();
-				java.sql.Date fechaAlta = java.sql.Date.valueOf(nuevaFechaAlta);
+				Date fechaAlta = Date.valueOf(nuevaFechaAlta);
 				String updateQueryFechaAlta = "UPDATE tratamiento SET fecha_alta=? WHERE id_tratamiento=?";
 				PreparedStatement statementFechaAlta = conn.prepareStatement(updateQueryFechaAlta);
 				statementFechaAlta.setDate(1, fechaAlta);
@@ -508,7 +533,7 @@ public class Crud implements CrudInterface {
 			case "fecha_baja":
 				System.out.print("Ingrese la nueva fecha de baja (YYYY-MM-DD): ");
 				String nuevaFechaBaja = sc.next();
-				java.sql.Date fechaBaja = java.sql.Date.valueOf(nuevaFechaBaja);
+				Date fechaBaja = Date.valueOf(nuevaFechaBaja);
 				String updateQueryFechaBaja = "UPDATE tratamiento SET fecha_baja=? WHERE id_tratamiento=?";
 				PreparedStatement statementFechaBaja = conn.prepareStatement(updateQueryFechaBaja);
 				statementFechaBaja.setDate(1, fechaBaja);

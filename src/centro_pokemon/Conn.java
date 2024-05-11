@@ -115,7 +115,6 @@ public class Conn {
 
 		} catch (SQLException e) {
 			System.out.println("La conexion ha fallado, revise la configuracion de la base de datos");
-			// e.printStackTrace();
 		}
 
 		return null;
