@@ -300,7 +300,7 @@ public class Crud implements CrudInterface {
 				System.out.println("No existe esa ID");
 			}
 			return centro;
-		
+
 		case "enfermera":
 			Enfermera enfermera = null;
 			try {
@@ -676,7 +676,7 @@ public class Crud implements CrudInterface {
 		System.out.println("DESARROLLAR");
 
 		// Object centro = selectId("centro", id_centro);
-		Object entrenador = selectId("entrenador", id_entrenador);
+		//HECHO Object entrenador = selectId("entrenador", id_entrenador);
 		// Object pokemon = selectId("pokemon", id_pokemon);
 
 	}
