@@ -8,7 +8,7 @@ public interface CrudInterface {
 
 	public void insertEntrenador(Entrenador nuevoEntrenador);
 
-	public void insertPokemon(Pokemon nuevoPokemon);
+	// public void insertPokemon(Pokemon nuevoPokemon);
 
 	public void insertTratamiento(Tratamiento nuevoTratamiento);
 

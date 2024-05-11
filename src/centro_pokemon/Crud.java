@@ -148,6 +148,7 @@ public class Crud implements CrudInterface {
 			System.out.println("\nTablas: \n- centro\n" + "- enfermera\n" + "- entrenador\n" + "- pokemon\n"
 					+ "- tratamiento\n" + "- salir\n");
 			tabla = sc.next();
+			sc.nextLine();
 		}
 
 		switch (tabla) {
@@ -412,7 +413,7 @@ public class Crud implements CrudInterface {
 			case "nombre":
 
 				System.out.print("Ingrese el nuevo nombre de centro: ");
-				String nuevoNombre = sc.next();
+				String nuevoNombre = sc.nextLine();
 				String updateQueryNombre = "UPDATE centro SET nombre=? WHERE id=?";
 				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
 				statementNombre.setString(1, nuevoNombre);
@@ -423,7 +424,7 @@ public class Crud implements CrudInterface {
 			case "localidad":
 
 				System.out.print("Ingrese la nueva localidad: ");
-				String nuevoLocalidad = sc.next();
+				String nuevoLocalidad = sc.nextLine();
 				String updateQueryLocalidad = "UPDATE centro SET localidad=? WHERE id=?";
 				PreparedStatement statementLocalidad = conn.prepareStatement(updateQueryLocalidad);
 				statementLocalidad.setString(1, nuevoLocalidad);
@@ -434,6 +435,7 @@ public class Crud implements CrudInterface {
 			case "presupuesto":
 				System.out.print("Ingrese el nuevo presupuesto: ");
 				double nuevoPresupuesto = sc.nextDouble();
+				sc.nextLine();
 				String updateQueryPresupuesto = "UPDATE centro SET presupuesto=? WHERE id=?";
 				PreparedStatement statementPresupuesto = conn.prepareStatement(updateQueryPresupuesto);
 				statementPresupuesto.setDouble(1, nuevoPresupuesto);
@@ -444,6 +446,7 @@ public class Crud implements CrudInterface {
 			case "trabajador":
 				System.out.print("Ingrese el nuevo ID del trabajador: ");
 				int nuevoIdTrabajador = sc.nextInt();
+				sc.nextLine();
 				String updateQueryIdTrabajador = "UPDATE centro SET trabajador=? WHERE id=?";
 				PreparedStatement statementIdTrabajador = conn.prepareStatement(updateQueryIdTrabajador);
 				statementIdTrabajador.setInt(1, nuevoIdTrabajador);
@@ -467,7 +470,7 @@ public class Crud implements CrudInterface {
 
 			case "nombre":
 				System.out.print("Ingrese el nuevo nombre: ");
-				String nuevoNombre = sc.next();
+				String nuevoNombre = sc.nextLine();
 				String updateQueryNombre = "UPDATE persona SET nombre=? WHERE id=?";
 				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
 				statementNombre.setString(1, nuevoNombre);
@@ -478,6 +481,7 @@ public class Crud implements CrudInterface {
 			case "genero":
 				System.out.print("Ingrese el nuevo genero(h/m): ");
 				String nuevoGenero = sc.next();
+				sc.nextLine();
 				String updateQueryGenero = "UPDATE persona SET genero=? WHERE id=?";
 				PreparedStatement statementGenero = conn.prepareStatement(updateQueryGenero);
 				statementGenero.setString(1, nuevoGenero);
@@ -488,6 +492,7 @@ public class Crud implements CrudInterface {
 			case "num_pokemon_tratados":
 				System.out.print("Ingrese el nuevo numero de pokemon tratados: ");
 				int nuevoNum = sc.nextInt();
+				sc.nextLine();
 				String updateQueryNum = "UPDATE enfermera SET num_pokemon_tratados=? WHERE id=?";
 				PreparedStatement statementNum = conn.prepareStatement(updateQueryNum);
 				statementNum.setInt(1, nuevoNum);
@@ -513,7 +518,7 @@ public class Crud implements CrudInterface {
 			case "nombre":
 
 				System.out.print("Ingrese el nuevo nombre: ");
-				String nuevoNombre = sc.next();
+				String nuevoNombre = sc.nextLine();
 				String updateQueryNombre = "UPDATE persona SET nombre=? WHERE id=?";
 				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
 				statementNombre.setString(1, nuevoNombre);
@@ -524,6 +529,7 @@ public class Crud implements CrudInterface {
 			case "genero":
 				System.out.print("Ingrese el nuevo genero(h/m): ");
 				String nuevoGenero = sc.next();
+				sc.nextLine();
 				String updateQueryGenero = "UPDATE persona SET genero=? WHERE id=?";
 				PreparedStatement statementGenero = conn.prepareStatement(updateQueryGenero);
 				statementGenero.setString(1, nuevoGenero);
@@ -534,6 +540,7 @@ public class Crud implements CrudInterface {
 			case "num_medallas":
 				System.out.print("Ingrese el nuevo numero de medallas: ");
 				int nuevoNum = sc.nextInt();
+				sc.nextLine();
 				String updateQueryNum = "UPDATE entrenador SET num_medallas=? WHERE id=?";
 				PreparedStatement statementNum = conn.prepareStatement(updateQueryNum);
 				statementNum.setInt(1, nuevoNum);
@@ -544,6 +551,7 @@ public class Crud implements CrudInterface {
 			case "saldo":
 				System.out.print("Ingrese el nuevo saldo: ");
 				double nuevoSaldo = sc.nextDouble();
+				sc.nextLine();
 				String updateQuerySaldo = "UPDATE entrenador SET saldo=? WHERE id=?";
 				PreparedStatement statementSaldo = conn.prepareStatement(updateQuerySaldo);
 				statementSaldo.setDouble(1, nuevoSaldo);
@@ -572,7 +580,7 @@ public class Crud implements CrudInterface {
 			case "id_tratamiento":
 
 				System.out.print("Ingrese el nuevo diagnóstico: ");
-				String nuevoDiagnostico = sc.next();
+				String nuevoDiagnostico = sc.nextLine();
 				String updateQueryDiagnostico = "UPDATE tratamiento SET diagnostico=? WHERE id_tratamiento=?";
 				PreparedStatement statementDiagnostico = conn.prepareStatement(updateQueryDiagnostico);
 				statementDiagnostico.setString(1, nuevoDiagnostico);
@@ -583,6 +591,7 @@ public class Crud implements CrudInterface {
 			case "fecha_alta":
 				System.out.print("Ingrese la nueva fecha de alta (YYYY-MM-DD): ");
 				String nuevaFechaAlta = sc.next();
+				sc.nextLine();
 				Date fechaAlta = Date.valueOf(nuevaFechaAlta);
 				String updateQueryFechaAlta = "UPDATE tratamiento SET fecha_alta=? WHERE id_tratamiento=?";
 				PreparedStatement statementFechaAlta = conn.prepareStatement(updateQueryFechaAlta);
@@ -594,6 +603,7 @@ public class Crud implements CrudInterface {
 			case "fecha_baja":
 				System.out.print("Ingrese la nueva fecha de baja (YYYY-MM-DD): ");
 				String nuevaFechaBaja = sc.next();
+				sc.nextLine();
 				Date fechaBaja = Date.valueOf(nuevaFechaBaja);
 				String updateQueryFechaBaja = "UPDATE tratamiento SET fecha_baja=? WHERE id_tratamiento=?";
 				PreparedStatement statementFechaBaja = conn.prepareStatement(updateQueryFechaBaja);
@@ -605,6 +615,7 @@ public class Crud implements CrudInterface {
 			case "costo":
 				System.out.print("Ingrese el nuevo costo: ");
 				double nuevoCosto = sc.nextDouble();
+				sc.nextLine();
 				String updateQueryCosto = "UPDATE tratamiento SET costo=? WHERE id_tratamiento=?";
 				PreparedStatement statementCosto = conn.prepareStatement(updateQueryCosto);
 				statementCosto.setDouble(1, nuevoCosto);
@@ -615,6 +626,7 @@ public class Crud implements CrudInterface {
 			case "id_poke":
 				System.out.print("Ingrese el nuevo ID del Pokemon: ");
 				int nuevoIdPokemon = sc.nextInt();
+				sc.nextLine();
 				String updateQueryIdPokemon = "UPDATE tratamiento SET id_poke=? WHERE id_tratamiento=?";
 				PreparedStatement statementIdPokemon = conn.prepareStatement(updateQueryIdPokemon);
 				statementIdPokemon.setInt(1, nuevoIdPokemon);
@@ -625,6 +637,7 @@ public class Crud implements CrudInterface {
 			case "id_enfermera":
 				System.out.print("Ingrese el nuevo ID de la Enfermera: ");
 				int nuevoIdEnfermera = sc.nextInt();
+				sc.nextLine();
 				String updateQueryIdEnfermera = "UPDATE tratamiento SET id_enfermera=? WHERE id_tratamiento=?";
 				PreparedStatement statementIdEnfermera = conn.prepareStatement(updateQueryIdEnfermera);
 				statementIdEnfermera.setInt(1, nuevoIdEnfermera);

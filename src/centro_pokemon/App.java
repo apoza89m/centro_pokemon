@@ -29,6 +29,7 @@ public class App {
 					+ "4.- READ\n" + "5.- UPDATE\n" + "6.- DELETE\n" + "7.- Curar pokemon\n" + "8.- Salir\n");
 
 			selectMenu = sc.nextInt();
+			sc.nextLine();
 			switch (selectMenu) {
 
 			case 1:
@@ -81,14 +82,14 @@ public class App {
 				try {
 					System.out.println("Inserte id del centro");
 					int id_centro = sc.nextInt();
-
+					sc.nextLine();
 					System.out.println("Inserte id de entrenador");
 					int id_entrenador = sc.nextInt();
-
+					sc.nextLine();
 					crud.muestraPokemon(id_entrenador);
 					System.out.println("Inserte id de pokemon");
 					int id_pokemon = sc.nextInt();
-
+					sc.nextLine();
 					crud.curarPokemon(id_centro, id_entrenador, id_pokemon);
 
 				} catch (Exception e) {
@@ -117,23 +118,26 @@ public class App {
 			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
 					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
+			sc.nextLine();
 			switch (selectMenu) {
 			case 1:
 				Centro nuevoCentro = new Centro();
 				System.out.println("Inserte nombre del centro");
-				String nuevoNombre = sc.next();
+				String nuevoNombre = sc.nextLine();
 				nuevoCentro.setNombre(nuevoNombre);
 
 				System.out.println("Inserte localidad");
-				String nuevaLocalidad = sc.next();
+				String nuevaLocalidad = sc.nextLine();
 				nuevoCentro.setLocalidad(nuevaLocalidad);
 
 				System.out.println("Inserte presupuesto");
 				Double nuevoPresupuesto = sc.nextDouble();
+				sc.nextLine();
 				nuevoCentro.setPresupuesto(nuevoPresupuesto);
 
 				System.out.println("Introduce ID de trabajador");
 				int nuevoTrabajador = sc.nextInt();
+				sc.nextLine();
 				nuevoCentro.setTrabajador(nuevoTrabajador);
 
 				crud.insertCentro(nuevoCentro);
@@ -144,13 +148,13 @@ public class App {
 
 				System.out.println("Inserte id de la enfermera");
 				nuevaEnfermera.setId(sc.nextInt());
-
+				sc.nextLine();
 				System.out.println("Inserte nombre de la enfermera");
-				nuevaEnfermera.setNombre(sc.next());
+				nuevaEnfermera.setNombre(sc.nextLine());
 
 				System.out.println("Inserte genero(h/m)");
 				nuevaEnfermera.setGenero(sc.next());
-
+				sc.nextLine();
 				nuevaEnfermera.setNumPokemonTratados(0);
 
 				crud.insertEnfermera(nuevaEnfermera);
@@ -161,18 +165,18 @@ public class App {
 
 				System.out.println("Inserte id del entrenador");
 				nuevoEntrenador.setId(sc.nextInt());
-
+				sc.nextLine();
 				System.out.println("Inserte nombre del entrenador");
-				nuevoEntrenador.setNombre(sc.next());
+				nuevoEntrenador.setNombre(sc.nextLine());
 
 				System.out.println("Inserte genero(h/m)");
 				nuevoEntrenador.setGenero(sc.next());
-
+				sc.nextLine();
 				nuevoEntrenador.setNumMedallas(0);
 
 				System.out.println("Inserte saldo");
 				nuevoEntrenador.setSaldo(sc.nextDouble());
-
+				sc.nextLine();
 				crud.insertEntrenador(nuevoEntrenador);
 				break;
 
@@ -184,23 +188,23 @@ public class App {
 				Tratamiento nuevoTratamiento = new Tratamiento();
 
 				System.out.println("Inserte nombre de diagnostico");
-				nuevoTratamiento.setDiagnostico(sc.next());
+				nuevoTratamiento.setDiagnostico(sc.nextLine());
 
 				System.out.println("Inserte fecha de alta (YYYY-MM-DD) ");
 				nuevoTratamiento.setFechaAlta(Date.valueOf(sc.next()));
-
+				sc.nextLine();
 				System.out.println("Inserte fecha de baja (YYYY-MM-DD)");
 				nuevoTratamiento.setFechaBaja(Date.valueOf(sc.next()));
-
+				sc.nextLine();
 				System.out.println("Inserte costo");
 				nuevoTratamiento.setCosto(sc.nextDouble());
-
+				sc.nextLine();
 				System.out.println("Inserte id de pokemon a tratar");
 				nuevoTratamiento.setIdPokemon(sc.nextInt());
-
+				sc.nextLine();
 				System.out.println("Inserte id de enfermera responsable");
 				nuevoTratamiento.setIdEnfermera(sc.nextInt());
-				sc.next();
+				sc.nextLine();
 				crud.insertTratamiento(nuevoTratamiento);
 				break;
 
@@ -224,6 +228,7 @@ public class App {
 			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
 					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
+			sc.nextLine();
 			switch (selectMenu) {
 			case 1:
 				try {
@@ -268,18 +273,19 @@ public class App {
 			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
 					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
+			sc.nextLine();
 			switch (selectMenu) {
 
 			case 1:
 				crud.select("centro");
 				System.out.println("Elige id a modificar: ");
 				int centroID = sc.nextInt();
-
+				sc.nextLine();
 				if (crud.selectId("centro", centroID) != null) {
 					System.out.println("Elige campo a modificar: ");
 					System.out.println("1.- nombre\n" + "2.- localidad\n" + "3.- presupuesto\n" + "4.- trabajador\n");
 					int opcionCentro = sc.nextInt();
-
+					sc.nextLine();
 					switch (opcionCentro) {
 					case 1:
 						crud.updateCentro(centroID, "nombre");
@@ -310,7 +316,7 @@ public class App {
 					System.out.println("Elige campo a modificar: ");
 					System.out.println("1.- nombre\n" + "2.- genero\n" + "3.- num_pokemon_tratados\n");
 					int opcionEnfermera = sc.nextInt();
-
+					sc.nextLine();
 					switch (opcionEnfermera) {
 					case 1:
 						crud.updateEnfermera(enfermeraID, "nombre");
@@ -332,11 +338,12 @@ public class App {
 				crud.select("entrenador");
 				System.out.println("Elige id a modificar: ");
 				int entrenadorID = sc.nextInt();
-
+				sc.nextLine();
 				if (crud.selectId("entrenador", entrenadorID) != null) {
 					System.out.println("Elige campo a modificar: ");
 					System.out.println("1.- nombre\n" + "2.- genero\n" + "3.- num_medallas\n" + "4.- saldo\n");
 					int opcionEntrenador = sc.nextInt();
+					sc.nextLine();
 					switch (opcionEntrenador) {
 					case 1:
 						crud.updateEntrenador(entrenadorID, "nombre");
@@ -368,14 +375,14 @@ public class App {
 				crud.select("tratamiento");
 				System.out.println("Elige el ID del tratamiento a modificar: ");
 				int tratamientoID = sc.nextInt();
-
+				sc.nextLine();
 				// Verificar si el ID del tratamiento existe en la base de datos
 				if (crud.selectId("tratamiento", tratamientoID) != null) {
 					System.out.println("Elige el campo a modificar: ");
 					System.out.println("1.- Diagnóstico\n" + "2.- Fecha de alta\n" + "3.- Fecha de baja\n"
 							+ "4.- Costo\n" + "5.- ID del Pokemon\n" + "6.- ID de la Enfermera\n");
 					int opcionTratamiento = sc.nextInt();
-
+					sc.nextLine();
 					switch (opcionTratamiento) {
 					case 1:
 						crud.updateTratamiento(tratamientoID, "id_tratamiento");
@@ -424,12 +431,13 @@ public class App {
 			System.out.println("1.- Centro\n" + "2.- Enfermera\n" + "3.- Entrenador\n" + "4.- Pokemon\n"
 					+ "5.- Tratamiento\n" + "6.- Salir\n");
 			selectMenu = sc.nextInt();
+			sc.nextLine();
 			switch (selectMenu) {
 			case 1:
 				crud.select("centro");
 				System.out.println("Elige id a eliminar: ");
 				int centroID = sc.nextInt();
-
+				sc.nextLine();
 				if (crud.selectId("centro", centroID) != null)
 					crud.deleteCentro(centroID);
 				else
@@ -440,7 +448,7 @@ public class App {
 				crud.select("enfermera");
 				System.out.println("Elige id a eliminar: ");
 				int enfermeraID = sc.nextInt();
-
+				sc.nextLine();
 				if (crud.selectId("enfermera", enfermeraID) != null)
 					crud.deleteEnfermera(enfermeraID);
 				else
@@ -451,7 +459,7 @@ public class App {
 				crud.select("entrenador");
 				System.out.println("Elige id a eliminar: ");
 				int entrenadorID = sc.nextInt();
-
+				sc.nextLine();
 				if (crud.selectId("entrenador", entrenadorID) != null)
 					crud.deleteEntrenador(entrenadorID);
 				else
@@ -466,7 +474,7 @@ public class App {
 				crud.select("tratamiento");
 				System.out.println("Elige el ID del tratamiento a eliminar: ");
 				int tratamientoID = sc.nextInt();
-
+				sc.nextLine();
 				// Verificar si el ID del tratamiento existe en la base de datos
 				if (crud.selectId("tratamiento", tratamientoID) != null) {
 					crud.deleteTratamiento(tratamientoID);
