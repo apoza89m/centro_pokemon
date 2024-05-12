@@ -1,5 +1,7 @@
 package centro_pokemon;
 
+import java.sql.SQLException;
+
 public interface CrudInterface {
 
 	public void insertCentro(Centro nuevoCentro);
@@ -37,5 +39,5 @@ public interface CrudInterface {
 
 	public void muestraPokemon(int id_entrenador);
 
-	// public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon);
+	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) throws SQLException;
 }

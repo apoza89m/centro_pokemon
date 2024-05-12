@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -653,7 +655,6 @@ public class Crud implements CrudInterface {
 			System.out.println(selectId("tratamiento", id));
 		} catch (SQLException e) {
 			System.out.println("Error al modificar");
-			// e.printStackTrace();
 		}
 	}
 
@@ -748,7 +749,7 @@ public class Crud implements CrudInterface {
 
 	public void muestraPokemon(int id_entrenador) {
 		try {
-			String query = "SELECT * FROM pokemon WHERE id_entrenador = ?";
+			String query = "SELECT * FROM pokemon WHERE id_entrenador = ? AND vida < 100";
 			PreparedStatement statement = conn.prepareStatement(query);
 			statement.setInt(1, id_entrenador);
 			ResultSet resultSet = statement.executeQuery();
@@ -758,7 +759,10 @@ public class Crud implements CrudInterface {
 			while (resultSet.next()) {
 				int id_pokemon = resultSet.getInt("id_poke");
 				String nombre = resultSet.getString("nombre");
-				System.out.println("ID: " + id_pokemon + ", Nombre: " + nombre);
+				int vida = resultSet.getInt("vida");
+				String estado = resultSet.getString("estado");
+				System.out.println(
+						"ID: " + id_pokemon + ", Nombre: " + nombre + ", Vida: " + vida + ", Estado: " + estado);
 			}
 		} catch (SQLException e) {
 			System.out.println("No existe esa ID");
@@ -766,13 +770,82 @@ public class Crud implements CrudInterface {
 
 	}
 
-	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) {
+	public void curarPokemon(int id_centro, int id_entrenador, int id_pokemon) throws SQLException {
 		System.out.println("DESARROLLAR");
 
-		// HECHO Object centro = selectId("centro", id_centro);
-		// HECHO Object entrenador = selectId("entrenador", id_entrenador);
-		// Object pokemon = selectId("pokemon", id_pokemon);
+		Centro centro = (Centro) selectId("centro", id_centro);
+		Entrenador entrenador = (Entrenador) selectId("entrenador", id_entrenador);
+		// Pokemon pokemon = (Pokemon) selectId("pokemon", id_pokemon); // FALTA POR
+		// HACER
+		Tratamiento tratamiento = null;
+
+		String estado = "Quemadura"; // ((Pokemon) pokemon).getEstado();
+
+		System.out.println("Para curar el estado " + estado + " se realizara el tratamiento:");
+
+		String queryTratamiento = "SELECT * FROM tratamiento WHERE id_poke = ?";
+		PreparedStatement statementDiagnostico = conn.prepareStatement(queryTratamiento);
+		statementDiagnostico.setInt(1, id_pokemon);
+
+		// Ejecutar la consulta y obtener el resultado
+		ResultSet resultSetDiagnostico = statementDiagnostico.executeQuery();
+		if (resultSetDiagnostico.next()) {
+			tratamiento = new Tratamiento();
+			tratamiento.setIdTratamiento(resultSetDiagnostico.getInt("id_Tratamiento"));
+			tratamiento.setDiagnostico(resultSetDiagnostico.getString("diagnostico"));
+			tratamiento.setFechaAlta(resultSetDiagnostico.getDate("fecha_alta"));
+			tratamiento.setFechaBaja(resultSetDiagnostico.getDate("fecha_baja"));
+			tratamiento.setCosto(resultSetDiagnostico.getDouble("costo"));
+			tratamiento.setIdPokemon(resultSetDiagnostico.getInt("id_poke"));
+			tratamiento.setIdEnfermera(resultSetDiagnostico.getInt("id_enfermera"));
+		} else
+			System.out.println("Ese diagnostico no esta registrado.");
+
+		System.out.println(tratamiento.getDiagnostico());
+
+		// Logica de fecha_alta
+		String hoy = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		String updateAlta = "UPDATE tratamiento SET fecha_alta = ? WHERE id_poke = ?";
+		PreparedStatement statementAlta = conn.prepareStatement(updateAlta);
+		statementAlta.setDate(1, Date.valueOf(hoy));
+		statementAlta.setInt(2, id_pokemon);
+		System.out.println("Fecha de alta actualizada: " + hoy);
+
+		// Logica de pago
+		double coste = tratamiento.getCosto();
+
+		System.out.println("Se va a cobrar al entrenador... " + coste);
+		double nuevoSaldo = entrenador.getSaldo() - coste;
+		String updateSaldo = "UPDATE entrenador SET saldo = ? WHERE id = ?";
+		PreparedStatement statementSaldo = conn.prepareStatement(updateSaldo);
+		statementSaldo.setDouble(1, nuevoSaldo);
+		statementSaldo.setInt(2, id_entrenador);
+		statementSaldo.executeUpdate();
+
+		System.out.println("El centro recibe el dinero..");
+		double nuevoPresupuesto = centro.getPresupuesto() + coste;
+		String updatePresupuesto = "UPDATE centro SET presupuesto=? WHERE id=?";
+		PreparedStatement statementPresupuesto = conn.prepareStatement(updatePresupuesto);
+		statementPresupuesto.setDouble(1, nuevoPresupuesto);
+		statementPresupuesto.setInt(2, id_centro);
+		statementPresupuesto.executeUpdate();
+
+		// Logica Pokemon
+		System.out.println("El pokemon " + "pokemon.getNombre()" + " va a ser curado...");
+
+		String updateVida = "UPDATE pokemon SET vida=? WHERE id_poke=?";
+		PreparedStatement statementVida = conn.prepareStatement(updateVida);
+		statementVida.setInt(1, 100);
+		statementVida.setInt(2, id_pokemon);
+		statementVida.executeUpdate();
+
+		String updateEstado = "UPDATE pokemon SET estado=? WHERE id_poke=?";
+		PreparedStatement statementEstado = conn.prepareStatement(updateEstado);
+		statementEstado.setString(1, "Normal");
+		statementEstado.setInt(2, id_pokemon);
+		statementEstado.executeUpdate();
+
+		System.out.println("La vida y el estado del pokemon " + "pokemon.getNombre()" + " han sido restaurados.");
 
 	}
-
 }

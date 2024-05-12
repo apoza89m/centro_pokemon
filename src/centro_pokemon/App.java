@@ -81,15 +81,20 @@ public class App {
 			case 7:
 				try {
 					System.out.println("Inserte id del centro");
+					crud.select("centro");
 					int id_centro = sc.nextInt();
 					sc.nextLine();
+
 					System.out.println("Inserte id de entrenador");
+					crud.select("entrenador");
 					int id_entrenador = sc.nextInt();
 					sc.nextLine();
-					crud.muestraPokemon(id_entrenador);
+
 					System.out.println("Inserte id de pokemon");
+					crud.muestraPokemon(id_entrenador);
 					int id_pokemon = sc.nextInt();
 					sc.nextLine();
+
 					crud.curarPokemon(id_centro, id_entrenador, id_pokemon);
 
 				} catch (Exception e) {
@@ -495,9 +500,6 @@ public class App {
 	}
 
 	public static void main(String[] args) {
-
-		// Crud crud = new Crud();
-		// System.out.println(crud.selectId("centro", 1));;
 		menuPrincipal();
 
 	}

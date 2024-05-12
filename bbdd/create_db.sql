@@ -58,7 +58,7 @@ CREATE TABLE tratamiento (
     fecha_alta DATE,
     fecha_baja DATE,
     costo DOUBLE,
-    id_poke INT,
+    id_poke INT UNIQUE,
     id_enfermera INT,
     FOREIGN KEY (id_poke) REFERENCES pokemon(id_poke),
     FOREIGN KEY (id_enfermera) REFERENCES enfermera(id)
@@ -112,13 +112,13 @@ VALUES
 -- Inserción en la tabla tratamiento
 INSERT INTO tratamiento (diagnostico, fecha_alta, fecha_baja, costo, id_poke, id_enfermera)
 VALUES
-    ('Parálisis', '2024-05-01', '2024-05-05', 100.0, 1, 1),
-    ('Envenenamiento', '2024-05-02', '2024-05-07', 150.0, 2, 1),
-    ('Quemadura', '2024-05-03', '2024-05-08', 120.0, 3, 1),
-    ('Insomnio', '2024-05-04', '2024-05-09', 80.0, 4, 2),
-    ('Confusión', '2024-05-05', '2024-05-10', 90.0, 5, 2),
-    ('Saludable', '2024-05-06', '2024-05-11', 50.0, 6, 2),
-    ('Parálisis', '2024-05-07', '2024-05-12', 100.0, 7, 2),
-    ('Herido', '2024-05-08', '2024-05-13', 200.0, 8, 1);
+    ('Parálisis', '2024-01-01', '2024-05-05', 100.0, 1, 1),
+    ('Envenenamiento', '2024-01-01', '2024-05-07', 150.0, 2, 1),
+    ('Quemadura', '2024-01-01', '2024-05-08', 120.0, 3, 1),
+    ('Insomnio', '2024-01-01', '2024-05-09', 80.0, 4, 2),
+    ('Confusión', '2024-01-01', '2024-05-10', 90.0, 5, 2),
+    ('Saludable', '2024-01-01', '2024-05-11', 50.0, 6, 2),
+    ('Saludable', '2024-01-01', '2024-05-12', 50.0, 7, 2),
+    ('Herido', '2024-01-01', '2024-05-13', 200.0, 8, 1);
 
 
