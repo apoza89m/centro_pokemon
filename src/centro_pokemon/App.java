@@ -375,6 +375,42 @@ public class App {
 				break;
 			case 4:
 				// CODIGO MAR
+				crud.select("pokemon");
+				System.out.println("Elige id a modificar: ");
+				int pokemonID = sc.nextInt();
+				sc.nextLine();
+
+				if (crud.selectId("pokemon", pokemonID) != null) {
+					System.out.println("Elige campo a modificar: ");
+					System.out.println("1.- nombre\n" + "2.- peso\n" + "3.- altura\n" + "4.- tipo\n" + "4.- vida\n"
+							+ "5.- estado");
+					int opcionpokemon = sc.nextInt();
+					sc.nextLine();
+					switch (opcionpokemon) {
+					case 1:
+						crud.updatePokemon(pokemonID, "nombre");
+						break;
+					case 2:
+						crud.updatePokemon(pokemonID, "peso");
+						break;
+					case 3:
+						crud.updatePokemon(pokemonID, "altura");
+						break;
+					case 4:
+						crud.updatePokemon(pokemonID, "tipo");
+						break;
+					case 5:
+						crud.updatePokemon(pokemonID, "vida");
+						break;
+					case 6:
+						crud.updatePokemon(pokemonID, "estado");
+						break;
+					default:
+						System.out.println("Saliendo.. ");
+						break;
+					}
+				} else
+					System.out.println("Ese ID no existe");
 				break;
 			case 5:
 				crud.select("tratamiento");
@@ -472,7 +508,15 @@ public class App {
 				break;
 
 			case 4:
-				// crud.Delete("pokemon",centroID);
+				crud.select("pokemon");
+				System.out.println("Elige que ID quieres eliminar ");
+				int PokemonId = sc.nextInt();
+
+				if (crud.selectId("pokemon", PokemonId) != null)
+					crud.deleteEntrenador(PokemonId);
+				else
+					System.out.println("Ese ID no existe");
+
 				break;
 
 			case 5:

@@ -53,16 +53,20 @@ public class Conn {
 		String nombre = "jdbc:mysql://localhost:";
 		System.out.printf("\nPuerto: %n");
 		nombre += sc.next() + "/";
+		sc.nextLine();
 		System.out.printf("\nNombre de base de datos: %n");
 		nombre += sc.next();
+		sc.nextLine();
 		;
 		System.out.printf("\nUsuario: %n");
 		String usuario = sc.next();
+		sc.nextLine();
 
 		// En el caso de root no preguntamos por password
 		if (!usuario.equals("root")) {
 			System.out.printf("\nPass: %n");
 			pass = sc.next();
+			sc.nextLine();
 		}
 
 		try {
@@ -79,19 +83,15 @@ public class Conn {
 			setUsername(usuario);
 			setPassword(pass);
 
-			System.out.println("------------ Datos actualizados! ------------");
+			System.out.println("------------ Datos actualizados ------------");
 
 			// Una vez comprobado que funciona, desconectamos
-
-			if (sc != null)
-				sc.close();
 
 			if (connection != null)
 				cierraConn(connection);
 
 		} catch (SQLException e) {
 			System.out.println("Error al configurar");
-			// e.printStackTrace();
 		}
 
 	}
@@ -123,9 +123,9 @@ public class Conn {
 	public static void cierraConn(Connection conn) {
 		try {
 			conn.close();
+
 		} catch (SQLException e) {
 			System.out.println("Error al cerrar la conexión");
-			// e.printStackTrace();
 		}
 	}
 

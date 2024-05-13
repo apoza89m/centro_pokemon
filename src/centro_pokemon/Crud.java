@@ -114,6 +114,23 @@ public class Crud implements CrudInterface {
 
 	public void insertPokemon(Pokemon nuevoPokemon) {
 		// MAR
+
+		try {
+			// prepare the sql statement
+			String insertQueryPokemon = "INSERT INTO pokemon (id, nombre, peso, altura, tipo, vida, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+			PreparedStatement preparedStatementPokemon = conn.prepareStatement(insertQueryPokemon);
+			// Set parameter values
+			preparedStatementPokemon.setInt(1, nuevoPokemon.getIdPoke());
+			preparedStatementPokemon.setString(2, nuevoPokemon.getNombre());
+			preparedStatementPokemon.setDouble(3, nuevoPokemon.getPeso());
+			// Execute the prepared statement
+			int rowsInserted2 = preparedStatementPokemon.executeUpdate();
+			System.out.println(rowsInserted2 + " row(s) insertados.");
+
+		} catch (SQLException e) {
+			System.out.println("Error al insertar");
+		}
 	}
 
 	public void insertTratamiento(Tratamiento nuevoTratamiento) {
@@ -572,8 +589,76 @@ public class Crud implements CrudInterface {
 		}
 	}
 
-	public void updatePokemon() {
+	public void updatePokemon(int pokemonID, String campo) {
 		// MAR
+		try {
+			switch (campo) {
+			case "nombre":
+				System.out.println("Ingrese el nombre  del pokemon");
+				String nuevoNombre = sc.next();
+				String updateQueryNombre = "Update nombre SET pokemon=? where pokemonNombre";
+				PreparedStatement statementNombre = conn.prepareStatement(updateQueryNombre);
+				statementNombre.setString(1, nuevoNombre);
+				statementNombre.setInt(2, pokemonID);
+				statementNombre.executeUpdate();
+				break;
+
+			case "peso":
+				System.out.println("Ingrese el peso  del pokemon");
+				int nuevoPeso = sc.nextInt();
+				String updateQueryPeso = "Update pokemon SET peso=? where pokemonPeso";
+				PreparedStatement statementPeso = conn.prepareStatement(updateQueryPeso);
+				statementPeso.setInt(1, nuevoPeso);
+				statementPeso.setInt(2, pokemonID);
+				statementPeso.executeUpdate();
+				break;
+
+			case "altura":
+				System.out.println("Ingrese la altura  del pokemon");
+				int nuevoAltura = sc.nextInt();
+				String updateQueryAltura = "Update pokemon SET altura=? where pokemonAltura";
+				PreparedStatement statementAltura = conn.prepareStatement(updateQueryAltura);
+				statementAltura.setInt(1, nuevoAltura);
+				statementAltura.setInt(2, pokemonID);
+				statementAltura.executeUpdate();
+				break;
+
+			case "tipo":
+				System.out.println("Ingrese el tipo  del pokemon");
+				String nuevoTipo = sc.next();
+				String updateQueryTipo = "Update pokemon SET tipo=? where pokemonTipo";
+				PreparedStatement statementTipo = conn.prepareStatement(updateQueryTipo);
+				statementTipo.setString(1, nuevoTipo);
+				statementTipo.setInt(2, pokemonID);
+				statementTipo.executeUpdate();
+				break;
+
+			case "vida":
+				System.out.println("Ingrese la vida  del pokemon");
+				String nuevoVida = sc.next();
+				String updateQueryVida = "Update pokemon SET vida=? where pokemonVida";
+				PreparedStatement statementVida = conn.prepareStatement(updateQueryVida);
+				statementVida.setString(1, nuevoVida);
+				statementVida.setInt(2, pokemonID);
+				statementVida.executeUpdate();
+				break;
+
+			case "estado":
+				System.out.println("Ingrese el estado  del pokemon");
+				String nuevoEstado = sc.next();
+				String updateQueryEstado = "Update nombre SET peso=? where pokemonPeso";
+				PreparedStatement statementEstado = conn.prepareStatement(updateQueryEstado);
+				statementEstado.setString(1, nuevoEstado);
+				statementEstado.setInt(2, pokemonID);
+				statementEstado.executeUpdate();
+				break;
+
+			}
+			System.out.println("Actualizado correctamente.");
+			System.out.println(selectId("entrenador", pokemonID));
+		} catch (SQLException e) {
+			System.out.println("Error al modificar");
+		}
 	}
 
 	public void updateTratamiento(int id, String campo) {
@@ -731,6 +816,23 @@ public class Crud implements CrudInterface {
 
 	public void deletePokemon(int id) {
 		// MAR
+		try {
+			String updateQueryPokemon = "Delete from pokemon where id=?";
+			String deleteQueryPersona = "Delete from persona where id=?";
+
+			PreparedStatement statementPokemon = conn.prepareStatement(updateQueryPokemon);
+			statementPokemon.setInt(1, id);
+			statementPokemon.executeUpdate();
+
+			PreparedStatement statementPersona = conn.prepareStatement(deleteQueryPersona);
+			statementPersona.setInt(1, id);
+			statementPersona.executeUpdate();
+
+			System.out.println("Eliminacion correcta");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void deleteTratamiento(int id) {
@@ -831,7 +933,7 @@ public class Crud implements CrudInterface {
 		statementPresupuesto.executeUpdate();
 
 		// Logica Pokemon
-		System.out.println("El pokemon " + "pokemon.getNombre()" + " va a ser curado...");
+		System.out.println("El pokemon va a ser curado...");
 
 		String updateVida = "UPDATE pokemon SET vida=? WHERE id_poke=?";
 		PreparedStatement statementVida = conn.prepareStatement(updateVida);
