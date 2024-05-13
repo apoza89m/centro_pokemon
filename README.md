@@ -24,14 +24,14 @@ Genial.ly - https://view.genial.ly/6641e6e4caeaf6001471f8d1/presentation-present
 
 # Organización del código
 
-Tito Robe - Estructura y logica de curar pokemon, diseño del menu y clases Enfermera/Entrenado (CRUD)
-Pepe - Clase Tratamiento (CRUD)
-Jesus - Clase Centro (CRUD)
-Mar - Clase Pokemon (CRUD)
+/Tito Robe - Estructura y logica de curar pokemon, diseño del menu y clases Enfermera/Entrenado (CRUD)
+/Pepe - Clase Tratamiento (CRUD)
+/Jesús - Clase Centro (CRUD)
+/Mar - Clase Pokemon (CRUD)
 
 # Organizacion de trabajo (idea general)
 
-Tito Robe - Organizacion del proyecto y planteamiento de ceremonias
-Pepe - Presentación, diseño bbdd e inserción de datos, UML
-Jesus - Trello, Gantt, asertividad (mayor apoyo en las quedadas en discord)
-Mar - Modelo E/R, redacción documento
+/Tito Robe - Organizacion del proyecto y planteamiento de ceremonias
+/Pepe - Presentación, diseño bbdd e inserción de datos, UML
+/Jesús - Trello, Gantt, asertividad (mayor apoyo en las quedadas en discord)
+/Mar - Modelo E/R, redacción documento
