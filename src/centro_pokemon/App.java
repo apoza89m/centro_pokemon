@@ -35,14 +35,14 @@ public class App {
 
 			case 1:
 				if (crud != null)
-					System.out.println("Error en la base de datos.");
+					System.out.println("Ya estas conectado.");
 				else
 					crud = new Crud();
 				break;
 
 			case 2:
 				if (crud != null)
-					System.out.println("Error en la base de datos.");
+					System.out.println("Ya estas conectado.");
 				else
 					Conn.configuraConn();
 				break;
@@ -99,7 +99,7 @@ public class App {
 					crud.curarPokemon(id_centro, id_entrenador, id_pokemon);
 
 				} catch (Exception e) {
-					System.out.println("Conecta a la base de datos primero.");
+					System.out.println("Error en la base de datos.");
 				}
 				break;
 
