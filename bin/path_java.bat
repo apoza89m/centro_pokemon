@@ -1,7 +1,7 @@
 @echo off
 
 rem Ruta con la ubicación de tu JDK
-set "jdkPath=C:\Program Files\Java\jdk-18.0.1.1"
+set "jdkPath=C:\Program Files\Java\jdk-17"
 
 rem Verifica si la ruta del JDK ya existe
 echo %PATH% | findstr /C:"%jdkPath%\bin" > nul

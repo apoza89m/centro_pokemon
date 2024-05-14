@@ -1,6 +1,7 @@
 package centro_pokemon;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -34,14 +35,14 @@ public class App {
 
 			case 1:
 				if (crud != null)
-					System.out.println("Ya estas conectado a la base de datos");
+					System.out.println("Error en la base de datos.");
 				else
 					crud = new Crud();
 				break;
 
 			case 2:
 				if (crud != null)
-					System.out.println("Ya estas conectado a la base de datos");
+					System.out.println("Error en la base de datos.");
 				else
 					Conn.configuraConn();
 				break;
@@ -50,7 +51,7 @@ public class App {
 				try {
 					menuInsert(crud);
 				} catch (Exception e) {
-					System.out.println("Conecta a la base de datos primero.");
+					System.out.println("Error en la base de datos.");
 				}
 				break;
 
@@ -58,7 +59,7 @@ public class App {
 				try {
 					menuSelect(crud);
 				} catch (Exception e) {
-					System.out.println("Conecta a la base de datos primero.");
+					System.out.println("Error en la base de datos.");
 				}
 				break;
 
@@ -66,7 +67,7 @@ public class App {
 				try {
 					menuUpdate(crud);
 				} catch (Exception e) {
-					System.out.println("Conecta a la base de datos primero.");
+					System.out.println("Error en la base de datos.");
 				}
 				break;
 
@@ -74,7 +75,7 @@ public class App {
 				try {
 					menuDelete(crud);
 				} catch (Exception e) {
-					System.out.println("Conecta a la base de datos primero.");
+					System.out.println("Error en la base de datos.");
 				}
 				break;
 
@@ -115,7 +116,7 @@ public class App {
 		}
 	}
 
-	public static void menuInsert(Crud crud) {
+	public static void menuInsert(Crud crud) throws SQLException{
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
@@ -270,7 +271,7 @@ public class App {
 		}
 	}
 
-	public static void menuUpdate(Crud crud) {
+	public static void menuUpdate(Crud crud) throws SQLException{
 
 		int selectMenu = 0;
 		while (selectMenu != 6) {
